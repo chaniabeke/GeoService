@@ -12,6 +12,10 @@ namespace GeoService.Domain.Models
         public int Id { get; private set; }
         public string Name { get; private set; }
         private List<Country> _countries = new List<Country>();
+        public IReadOnlyList<Country> Countries
+        {
+            get { return _countries.AsReadOnly(); }
+        }
         #endregion
 
         #region Constructors
@@ -39,10 +43,6 @@ namespace GeoService.Domain.Models
             if (name is null) throw new ContinentException("Continent - name invalid");
             if (name.Trim().Length < 1) throw new ContinentException("Continent - name invalid");
             Name = name;
-        }
-        public IReadOnlyList<Country> GetCountries()
-        {
-            return _countries.AsReadOnly();
         }
         #endregion
 

@@ -16,7 +16,12 @@ namespace GeoService.Domain.Models
         #endregion
 
         #region Constructors
-        public Country (int id, string name, Continent continent)
+        public Country(int id, string name)
+        {
+            SetId(id);
+            SetName(name);
+        }
+        public Country (int id, string name, Continent continent) : this(id, name)
         {
             SetId(id);
             SetName(name);
