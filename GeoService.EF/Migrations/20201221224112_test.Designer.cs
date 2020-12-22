@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoService.EF.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201209223001_init")]
-    partial class init
+    [Migration("20201221224112_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,12 +73,12 @@ namespace GeoService.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    //b.Navigation("Continent");
+                    b.Navigation("Continent");
                 });
 
             modelBuilder.Entity("GeoService.Domain.Models.Continent", b =>
                 {
-                 //   b.Navigation("Countries");
+                    b.Navigation("Countries");
                 });
 #pragma warning restore 612, 618
         }

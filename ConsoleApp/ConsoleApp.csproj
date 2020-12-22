@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeoService.Domain\GeoService.Domain.csproj" />
+    <ProjectReference Include="..\GeoService.EF\GeoService.EF.csproj" />
+  </ItemGroup>
+
+</Project>

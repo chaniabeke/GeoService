@@ -23,7 +23,7 @@ namespace GeoService.EF.DataAccess
         private void SetConnectionString(string db = "Production")
         {
             var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsettings.json", optional: false);
+            builder.AddJsonFile("AppSettings.json", optional: false);
 
             var configuration = builder.Build();
             switch (db)

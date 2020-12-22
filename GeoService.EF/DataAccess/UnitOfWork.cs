@@ -10,9 +10,9 @@ namespace GeoService.EF.DataAccess
     {
         private DataContext context;
 
-        public UnitOfWork(DataContext context)
+        public UnitOfWork()
         {
-            this.context = context;
+            this.context = new DataContext();
 
             Continents = new ContinentRepository(this.context);
             Countries = new CountryRepository(this.context);

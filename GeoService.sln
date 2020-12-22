@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoService.API", "GeoService.API\GeoService.API.csproj", "{042CB93E-6191-4181-BC71-A56A7F1B746E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoService.API", "GeoService.API\GeoService.API.csproj", "{042CB93E-6191-4181-BC71-A56A7F1B746E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoService.EF", "GeoService.EF\GeoService.EF.csproj", "{88B815E6-C3B3-4B3A-8465-F4E9D0690BD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoService.EF", "GeoService.EF\GeoService.EF.csproj", "{88B815E6-C3B3-4B3A-8465-F4E9D0690BD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoService.Domain", "GeoService.Domain\GeoService.Domain.csproj", "{DD13F05E-2DFE-484D-9BC9-20BE28F3AB8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoService.Domain", "GeoService.Domain\GeoService.Domain.csproj", "{DD13F05E-2DFE-484D-9BC9-20BE28F3AB8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTests.Domain", "MSTests.Domain\MSTests.Domain.csproj", "{C5D71959-FDE8-47AD-AB64-32D3A2F0BB22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSTests.Domain", "MSTests.Domain\MSTests.Domain.csproj", "{C5D71959-FDE8-47AD-AB64-32D3A2F0BB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTests.EF", "MSTests.EF\MSTests.EF.csproj", "{2EEEF826-9458-4895-9190-42FA29434C35}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTests.API", "MSTests.API\MSTests.API.csproj", "{92AABAD5-A3FE-43AE-868B-8279179FC094}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{716624CE-5D86-430F-9F37-D5584FD2B6CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +35,10 @@ Global
 		{C5D71959-FDE8-47AD-AB64-32D3A2F0BB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5D71959-FDE8-47AD-AB64-32D3A2F0BB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5D71959-FDE8-47AD-AB64-32D3A2F0BB22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EEEF826-9458-4895-9190-42FA29434C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EEEF826-9458-4895-9190-42FA29434C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EEEF826-9458-4895-9190-42FA29434C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EEEF826-9458-4895-9190-42FA29434C35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92AABAD5-A3FE-43AE-868B-8279179FC094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92AABAD5-A3FE-43AE-868B-8279179FC094}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92AABAD5-A3FE-43AE-868B-8279179FC094}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92AABAD5-A3FE-43AE-868B-8279179FC094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716624CE-5D86-430F-9F37-D5584FD2B6CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716624CE-5D86-430F-9F37-D5584FD2B6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716624CE-5D86-430F-9F37-D5584FD2B6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716624CE-5D86-430F-9F37-D5584FD2B6CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,63 +7,81 @@ namespace GeoService.Domain.Models
 {
     public class Country
     {
+        #region Fields
+        private int _id;
+        private string _name;
+        private int _population;
+        private double _surface;
+        private Continent _continent;
+        #endregion
         #region Properties
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int Population { get; private set; }
-        public double Surface { get; private set; }
-        public Continent Continent { get; private set; }
+        public int Id
+        {
+            get => _id;
+            set => _id = SetId(value);
+        }
+        public string Name
+        {
+            get => _name;
+            set => _name = SetName(value);
+        }
+        public int Population
+        {
+            get => _population;
+            set => _population = SetPopulation(value);
+        }
+        public double Surface
+        {
+            get => _surface;
+            set => _surface = SetSurface(value);
+        }
+        public Continent Continent
+        {
+            get => _continent;
+            set => _continent = SetContinent(value);
+        }
         #endregion
 
         #region Constructors
-        public Country(int id, string name)
+        internal Country()
         {
-            SetId(id);
-            SetName(name);
         }
-        public Country (int id, string name, Continent continent) : this(id, name)
+        public Country(int id, string name, int population, double surface)
         {
-            SetId(id);
-            SetName(name);
-            SetContinent(continent);
+            this.Id = id;
+            this.Name = name;
+            this.Surface = surface;
+            this.Population = population;
         }
-        public Country(int id, string name, Continent continent, double surface): this(id, name, continent)
+        public Country(int id, string name, int population, double surface, Continent continent) : this(id, name, population, surface)
         {
-            SetSurface(surface);
-        }
-        public Country(int id, string name, Continent continent, int population) : this(id, name, continent)
-        {
-            SetPopulation(population);
-        }
-        public Country(int id, string name, Continent continent, int population, double surface) : this(id, name, continent, population)
-        {
-            SetSurface(surface);
+            this.Continent = continent;
         }
         #endregion
 
         #region Getters and Setters
-        public void SetId(int id)
+        private int SetId(int id)
         {
             if (id <= 0) throw new CountryException("Country - Id invalid");
-            Id = id;
+            return id;
         }
-        public void SetName(string name)
+        private string SetName(string name)
         {
             if (name is null) throw new CountryException("Country - name invalid");
             if (name.Trim().Length < 1) throw new CountryException("Country - name invalid");
-            Name = name;
+            return name;
         }
-        public void SetPopulation(int population)
+        private int SetPopulation(int population)
         {
             if (population <= 0) throw new CountryException("Country - population invalid");
-            Population = population;
+            return population;
         }
-        public void SetSurface(double surface)
+        private double SetSurface(double surface)
         {
             if (surface <= 0) throw new CountryException("Country - surface invalid");
-            Surface = surface;
+            return surface;
         }
-        public void SetContinent(Continent newContinent)
+        private Continent SetContinent(Continent newContinent)
         {
             if (newContinent == null) throw new CountryException("Country - SetContinent - invalid continent");
             //TODO think
@@ -78,11 +96,21 @@ namespace GeoService.Domain.Models
             //check if new continent has country and adds
             if (!newContinent.HasCountry(this)) newContinent.AddCountry(this);
 
-            Continent = newContinent;
+            return newContinent;
         }
         #endregion
 
         #region Methods
+        public override bool Equals(object obj)
+        {
+            return obj is Country country &&
+                   Name == country.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name);
+        }
         #endregion
     }
 }
