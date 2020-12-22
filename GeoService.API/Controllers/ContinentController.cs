@@ -1,13 +1,9 @@
-﻿using GeoService.Domain.Managers;
-using GeoService.EF.DataAccess;
-using Microsoft.AspNetCore.Mvc;
+﻿using GeoService.API.Mappers;
 using GeoService.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GeoService.API.Mappers;
+using GeoService.Domain.Managers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace GeoService.API.Controllers
 {
@@ -18,10 +14,10 @@ namespace GeoService.API.Controllers
         private readonly ContinentManager manager;
         private readonly ILogger logger;
 
-        public ContinentController(ContinentManager manager, ILogger<ContinentController> logger)
+        public ContinentController(ContinentManager manager, ILoggerFactory loggerFactory)
         {
             this.manager = manager;
-            this.logger = logger;
+            this.logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
         }
 
         [HttpPost]
@@ -40,20 +36,24 @@ namespace GeoService.API.Controllers
                 return NotFound("not found message");
             }
         }
+
         [HttpGet("{id}")]
         [HttpHead("{id}")]
         public ActionResult<ContinentApi> Get(int id)
         {
             try
             {
-                logger.LogInformation("Get called");
+                //logger.LogInformation(1001,"Get called");
+                //logger.LogCritical("Critical log");
+                //logger.LogDebug("Debug log");
+                //logger.LogError("error log");
+                //logger.LogTrace("trace log");
                 return Ok(manager.Find(id));
             }
             catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }
-
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.EF.DataAccess
 {
@@ -54,7 +51,6 @@ namespace GeoService.EF.DataAccess
             entityBuilder.Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(200);
-
         }
 
         private void ConfigureCountry(EntityTypeBuilder<Domain.Models.Country> entityBuilder)

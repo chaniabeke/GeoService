@@ -1,8 +1,6 @@
 ﻿using GeoService.Domain.Interfaces;
 using GeoService.EF.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.EF.DataAccess
 {

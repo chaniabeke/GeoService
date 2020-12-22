@@ -1,51 +1,60 @@
 ﻿using GeoService.Domain.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.Domain.Models
 {
     public class Country
     {
         #region Fields
+
         private int _id;
         private string _name;
         private int _population;
         private double _surface;
         private Continent _continent;
-        #endregion
+
+        #endregion Fields
+
         #region Properties
+
         public int Id
         {
             get => _id;
             set => _id = SetId(value);
         }
+
         public string Name
         {
             get => _name;
             set => _name = SetName(value);
         }
+
         public int Population
         {
             get => _population;
             set => _population = SetPopulation(value);
         }
+
         public double Surface
         {
             get => _surface;
             set => _surface = SetSurface(value);
         }
+
         public Continent Continent
         {
             get => _continent;
             set => _continent = SetContinent(value);
         }
-        #endregion
+
+        #endregion Properties
 
         #region Constructors
+
         internal Country()
         {
         }
+
         public Country(int id, string name, int population, double surface)
         {
             this.Id = id;
@@ -53,34 +62,41 @@ namespace GeoService.Domain.Models
             this.Surface = surface;
             this.Population = population;
         }
+
         public Country(int id, string name, int population, double surface, Continent continent) : this(id, name, population, surface)
         {
             this.Continent = continent;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Getters and Setters
+
         private int SetId(int id)
         {
             if (id <= 0) throw new CountryException("Country - Id invalid");
             return id;
         }
+
         private string SetName(string name)
         {
             if (name is null) throw new CountryException("Country - name invalid");
             if (name.Trim().Length < 1) throw new CountryException("Country - name invalid");
             return name;
         }
+
         private int SetPopulation(int population)
         {
             if (population <= 0) throw new CountryException("Country - population invalid");
             return population;
         }
+
         private double SetSurface(double surface)
         {
             if (surface <= 0) throw new CountryException("Country - surface invalid");
             return surface;
         }
+
         private Continent SetContinent(Continent newContinent)
         {
             if (newContinent == null) throw new CountryException("Country - SetContinent - invalid continent");
@@ -98,9 +114,11 @@ namespace GeoService.Domain.Models
 
             return newContinent;
         }
-        #endregion
+
+        #endregion Getters and Setters
 
         #region Methods
+
         public override bool Equals(object obj)
         {
             return obj is Country country &&
@@ -111,6 +129,7 @@ namespace GeoService.Domain.Models
         {
             return HashCode.Combine(Name);
         }
-        #endregion
+
+        #endregion Methods
     }
 }

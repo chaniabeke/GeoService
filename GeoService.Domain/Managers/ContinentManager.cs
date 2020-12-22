@@ -1,8 +1,6 @@
 ﻿using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.Domain.Managers
 {

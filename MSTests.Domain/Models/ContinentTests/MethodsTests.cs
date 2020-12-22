@@ -3,9 +3,7 @@ using GeoService.Domain.Exceptions;
 using GeoService.Domain.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MSTests.Domain.Models.ContinentTests
 {
@@ -52,7 +50,7 @@ namespace MSTests.Domain.Models.ContinentTests
             country.Continent.Should().BeEquivalentTo(newContinent);
         }
 
-        #endregion
+        #endregion AddCountry
 
         #region HasCountry
 
@@ -69,7 +67,8 @@ namespace MSTests.Domain.Models.ContinentTests
 
             continent.Countries.Count.Should().Be(3);
         }
-        #endregion
+
+        #endregion HasCountry
 
         #region UpdateCountry
 
@@ -89,10 +88,9 @@ namespace MSTests.Domain.Models.ContinentTests
             test.Id.Should().Be(newCountry.Id);
             test.Name.Should().Be(newCountry.Name);
         }
-        #endregion
+
+        #endregion UpdateCountry
 
         //TODO population
-        #region Population
-        #endregion
     }
 }

@@ -1,7 +1,4 @@
 ﻿using GeoService.EF.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MSTests.Domain
 {

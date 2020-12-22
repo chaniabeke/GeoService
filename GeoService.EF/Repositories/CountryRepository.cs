@@ -1,9 +1,6 @@
 ﻿using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.EF.Repositories
 {

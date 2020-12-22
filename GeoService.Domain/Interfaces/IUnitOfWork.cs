@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.Domain.Interfaces
 {
@@ -8,6 +6,7 @@ namespace GeoService.Domain.Interfaces
     {
         IContinentRepository Continents { get; }
         ICountryRepository Countries { get; }
+
         int Complete();
     }
 }

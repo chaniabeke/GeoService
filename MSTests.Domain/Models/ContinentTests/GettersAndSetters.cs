@@ -4,8 +4,6 @@ using GeoService.Domain.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MSTests.Domain.Models.ContinentTests
 {
@@ -25,7 +23,6 @@ namespace MSTests.Domain.Models.ContinentTests
 
             Assert.AreEqual(continent.Id, 10);
             continent.Id.Should().Be(10);
-
         }
 
         [TestMethod]
@@ -115,7 +112,7 @@ namespace MSTests.Domain.Models.ContinentTests
         public void SetCountries_ShouldThrowException_IfCountiesListCountIsZero()
         {
             List<Country> countries = new List<Country>();
-           
+
             Action act = () =>
             {
                 Continent continent = new Continent(5, "Asia", countries);
@@ -137,6 +134,6 @@ namespace MSTests.Domain.Models.ContinentTests
             act.Should().Throw<ContinentException>().WithMessage("Continent - invalid countriesList");
         }
 
-        #endregion
+        #endregion SetCountries
     }
 }
