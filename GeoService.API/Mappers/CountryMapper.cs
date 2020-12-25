@@ -1,15 +1,18 @@
 ﻿using GeoService.API.Models;
+using GeoService.Domain.Managers;
 using GeoService.Domain.Models;
 
 namespace GeoService.API.Mappers
 {
     public static class CountryMapper
     {
-        public static Country CountryInMapper(CountryInApi countryIn)
+        public static Country CountryInMapper(ContinentManager continentManager,CountryInApi countryIn)
         {
             Country country = new Country();
             country.Name = countryIn.Name;
-            //TODO de rest + continent object
+            country.Population = countryIn.Population;
+            country.Surface = countryIn.Surface;
+            country.Continent = continentManager.Find(countryIn.ContinentId);
             return country;
         }
         public static CountryOutApi CountryOutMapper(string hostUrl, Country country)

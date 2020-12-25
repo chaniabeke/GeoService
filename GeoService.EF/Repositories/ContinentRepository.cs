@@ -17,10 +17,13 @@ namespace GeoService.EF.Repositories
             this.context = context;
         }
 
-        public void AddContinent(Continent continent)
+        public Continent AddContinent(Continent continent)
         {
             ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
             context.Continents.Add(continentDB);
+            context.SaveChanges();
+            Continent newContinent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
+            return newContinent;
         }
 
         public Continent Find(int id)
@@ -46,7 +49,7 @@ namespace GeoService.EF.Repositories
         public void UpdateContinent(Continent oldContinent, Continent newContinent)
         {
             oldContinent.Name = newContinent.Name;
-            //TODO countries?
+            //TODO EF - update countries?
         }
     }
 }

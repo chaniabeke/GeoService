@@ -6,6 +6,6 @@ namespace GeoService.API.Models
     public class ContinentInApi
     {
         public string Name { get; set; }
-        public List<Country> Countries { get; set; }
+        public List<int> Countries { get; set; }
     }
 }

@@ -106,7 +106,6 @@ namespace GeoService.Domain.Models
         private Continent SetContinent(Continent newContinent)
         {
             if (newContinent == null) throw new CountryException("Country - SetContinent - invalid continent");
-            //TODO think
             if (newContinent == Continent) throw new CountryException("Country - SetContinent - not new");
 
             //Check if old continent had country and deletes

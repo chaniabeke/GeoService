@@ -15,10 +15,20 @@ namespace GeoService.EF.Repositories
             this.context = context;
         }
 
-        public void AddCountry(Country country)
+        public Country AddCountry(Country country)
         {
             CountryDB countryDB = CountryMapper.CountryToDBModel(country);
             context.Countries.Add(countryDB);
+            context.SaveChanges();
+            Country newCountry = CountryMapper.CountryDBToBusinessModel(countryDB);
+            return newCountry;
+        }
+
+        public Country Find(int countryId)
+        {
+            CountryDB countryDB = context.Countries.Find(countryId);
+            Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+            return country;
         }
 
         public Country Find(int continentId, int countryId)

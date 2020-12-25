@@ -66,7 +66,7 @@ namespace GeoService.Domain.Models
 
         private int SetId(int id)
         {
-            if (id <= 0) throw new ContinentException("Continent - Id invalid");
+            if (id < 0) throw new ContinentException("Continent - Id invalid");
             return id;
         }
 
@@ -119,7 +119,7 @@ namespace GeoService.Domain.Models
             if (newCountry.Surface != 0) oldCountry.Surface = newCountry.Surface;
         }
 
-        //TODO verwijder land van continent wanneer land verwijdert wordt, in manager
+        //TODO MANAGER - verwijder land van continent wanneer land verwijdert wordt
         internal void DeleteCountry(Country country)
         {
             if (!_countries.Contains(country)) throw new ContinentException("Continent - DeleteCountry : country does not exist");

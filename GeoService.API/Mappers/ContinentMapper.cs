@@ -1,18 +1,20 @@
 ﻿using GeoService.API.Models;
+using GeoService.Domain.Managers;
 using GeoService.Domain.Models;
 
 namespace GeoService.API.Mappers
 {
     public static class ContinentMapper
     {
-        public static Continent ContinentInMapper(ContinentInApi continentIn)
+        public static Continent ContinentInMapper(CountryManager countryManager, ContinentInApi continentIn)
         {
             Continent continent = new Continent();
             continent.Name = continentIn.Name;
             if (continentIn.Countries != null)
             {
-                foreach (Country country in continentIn.Countries)
+                foreach (var countryId in continentIn.Countries)
                 {
+                    Country country = countryManager.Find(countryId);
                     continent.AddCountry(country);
                 }
             }

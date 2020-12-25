@@ -12,9 +12,14 @@ namespace GeoService.Domain.Managers
             this.uow = uow;
         }
 
-        public void AddCountry(Country country)
+        public Country AddCountry(Country country)
         {
-            uow.Countries.AddCountry(country);
+            return uow.Countries.AddCountry(country);
+        }
+
+        public Country Find(int countryId)
+        {
+            return uow.Countries.Find(countryId);
         }
 
         public Country Find(int continentId, int countryId)

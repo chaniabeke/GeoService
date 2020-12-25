@@ -13,7 +13,7 @@ namespace GeoService.EF.Mappers
             ContinentDB continentDB = new ContinentDB();
             continentDB.Id = continent.Id;
             continentDB.Name = continent.Name;
-            foreach(Country country in continent.Countries)
+            foreach (Country country in continent.Countries)
             {
                 if (country != null)
                 {

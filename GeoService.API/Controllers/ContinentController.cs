@@ -12,35 +12,39 @@ namespace GeoService.API.Controllers
     [Route("api/[controller]")]
     public class ContinentController : ControllerBase
     {
-        private readonly ContinentManager manager;
+        private readonly ContinentManager continentManager;
+        private readonly CountryManager countryManager;
         private readonly ILogger logger;
         private string hostUrl;
 
-        public ContinentController(IConfiguration iconfiguration, ContinentManager manager, ILoggerFactory loggerFactory)
+        public ContinentController(IConfiguration iconfiguration, ContinentManager continentManager, 
+            CountryManager countryManager, ILoggerFactory loggerFactory)
         {
             hostUrl = iconfiguration.GetValue<string>("profiles:GeoService.Api:applicationUrl");
-            this.manager = manager;
+            this.continentManager = continentManager;
+            this.countryManager = countryManager;
             logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
         }
 
+        //TODO Fix add existing countries with new continent
         [HttpPost]
         public ActionResult<ContinentInApi> PostContinent([FromBody] ContinentInApi continentAPI)
         {
             logger.LogInformation($"Post api/continent/ called");
             try
             {
-                Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(continentAPI);
-                Domain.Models.Continent continentCreated = manager.AddContinent(continent);
+                //TODO API - if(object is valid) else return bad request
+                Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(countryManager, continentAPI);
+                Domain.Models.Continent continentCreated = continentManager.AddContinent(continent);
                 if (continentCreated != null)
                 {
-                    //TODO RETURN WITH CORRECT CONTINENT ID
                     ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continentCreated);
                     return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
                 }
                 else
                 {
-                    logger.LogError("error");
-                    return NotFound("not found message");
+                    logger.LogError("Continent can not be null.");
+                    return NotFound("Continent can not be null.");
                 }
             }
             catch (Exception ex)
@@ -57,7 +61,7 @@ namespace GeoService.API.Controllers
             logger.LogInformation(id, $"Get api/continent/{id} called");
             try
             {
-                Domain.Models.Continent continent = manager.Find(id);
+                Domain.Models.Continent continent = continentManager.Find(id);
                 if (continent != null)
                 {
                     ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continent);

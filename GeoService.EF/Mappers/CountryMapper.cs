@@ -29,7 +29,6 @@ namespace GeoService.EF.Mappers
             country.Population = countryDB.Population;
             country.Surface = countryDB.Surface;
             country.Continent = ContinentMapper.ContinentDBWithoutCountriesToBusinessModel(countryDB.Continent);
-            country.Continent.Id = countryDB.ContinentId;
             return country;
         }
         internal static List<Country> CountryDBListToBusinessModel(List<CountryDB> countryDBs)

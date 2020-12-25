@@ -72,7 +72,7 @@ namespace MSTests.Domain.Models.ContinentTests
 
         #region UpdateCountry
 
-        //TODO updatecountry - exeptionmethods
+        //TODO TESTS updatecountry - exeptionmethods
         [TestMethod]
         public void UpdateCountry_ShouldUpdateCountryCorrectly_IfCountryExistWithinContinent()
         {
@@ -91,6 +91,6 @@ namespace MSTests.Domain.Models.ContinentTests
 
         #endregion UpdateCountry
 
-        //TODO population
+        //TESTS TODO population
     }
 }
