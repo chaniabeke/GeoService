@@ -51,8 +51,14 @@ namespace GeoService.Domain.Models
 
         #region Constructors
 
-        internal Country()
+        public Country()
         {
+        }
+        public Country(string name, int population, double surface)
+        {
+            this.Name = name;
+            this.Surface = surface;
+            this.Population = population;
         }
 
         public Country(int id, string name, int population, double surface)

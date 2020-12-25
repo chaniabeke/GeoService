@@ -1,6 +1,8 @@
 ﻿using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
+using GeoService.EF.Mappers;
+using GeoService.EF.Models;
 
 namespace GeoService.EF.Repositories
 {
@@ -15,17 +17,24 @@ namespace GeoService.EF.Repositories
 
         public void AddCountry(Country country)
         {
-            context.Countries.Add(country);
+            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+            context.Countries.Add(countryDB);
         }
 
-        public Country Find(int id)
+        public Country Find(int continentId, int countryId)
         {
-            return context.Countries.Find(id);
+            CountryDB countryDB = context.Countries.Find(countryId);
+            ContinentDB continentDB = context.Continents.Find(continentId);
+            countryDB.Continent = continentDB;
+            countryDB.ContinentId = continentId;
+            Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+            return country;
         }
 
         public void RemoveCountry(Country country)
         {
-            context.Countries.Remove(country);
+            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+            context.Countries.Remove(countryDB);
         }
 
         public void UpdateCountry(Country oldCountry, Country newCountry)

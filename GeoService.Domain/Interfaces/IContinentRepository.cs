@@ -5,7 +5,7 @@ namespace GeoService.Domain.Interfaces
 {
     public interface IContinentRepository
     {
-        Continent AddContinent(Continent continent);
+        void AddContinent(Continent continent);
 
         void UpdateContinent(Continent oldContinent, Continent newContinent);
 

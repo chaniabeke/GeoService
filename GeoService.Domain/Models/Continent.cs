@@ -42,9 +42,10 @@ namespace GeoService.Domain.Models
         #endregion Properties
 
         #region Constructors
-
-        public Continent()
+        public Continent() { }
+        public Continent(string name)
         {
+            this.Name = name;
         }
 
         public Continent(int id, string name)

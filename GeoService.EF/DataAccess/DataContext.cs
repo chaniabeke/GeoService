@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeoService.EF.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
 
@@ -35,16 +36,16 @@ namespace GeoService.EF.DataAccess
             }
         }
 
-        public DbSet<Domain.Models.Continent> Continents { get; set; }
-        public DbSet<Domain.Models.Country> Countries { get; set; }
+        public DbSet<ContinentDB> Continents { get; set; }
+        public DbSet<CountryDB> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Domain.Models.Continent>(ConfigureContinent);
-            modelBuilder.Entity<Domain.Models.Country>(ConfigureCountry);
+            modelBuilder.Entity<ContinentDB>(ConfigureContinent);
+            modelBuilder.Entity<CountryDB>(ConfigureCountry);
         }
 
-        private void ConfigureContinent(EntityTypeBuilder<Domain.Models.Continent> entityBuilder)
+        private void ConfigureContinent(EntityTypeBuilder<ContinentDB> entityBuilder)
         {
             entityBuilder.HasKey(x => x.Id);
 
@@ -53,17 +54,13 @@ namespace GeoService.EF.DataAccess
                 .HasMaxLength(200);
         }
 
-        private void ConfigureCountry(EntityTypeBuilder<Domain.Models.Country> entityBuilder)
+        private void ConfigureCountry(EntityTypeBuilder<CountryDB> entityBuilder)
         {
             entityBuilder.HasKey(x => x.Id);
 
             entityBuilder.Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(200);
-
-            entityBuilder.HasOne(x => x.Continent)
-                .WithMany(x => x.Countries)
-                .IsRequired(true);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

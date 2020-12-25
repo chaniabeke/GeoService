@@ -18,7 +18,7 @@ namespace GeoService.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("GeoService.Domain.Models.Continent", b =>
+            modelBuilder.Entity("GeoService.EF.Models.ContinentDB", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,7 +35,7 @@ namespace GeoService.EF.Migrations
                     b.ToTable("Continents");
                 });
 
-            modelBuilder.Entity("GeoService.Domain.Models.Country", b =>
+            modelBuilder.Entity("GeoService.EF.Models.CountryDB", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,9 +63,9 @@ namespace GeoService.EF.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("GeoService.Domain.Models.Country", b =>
+            modelBuilder.Entity("GeoService.EF.Models.CountryDB", b =>
                 {
-                    b.HasOne("GeoService.Domain.Models.Continent", "Continent")
+                    b.HasOne("GeoService.EF.Models.ContinentDB", "Continent")
                         .WithMany("Countries")
                         .HasForeignKey("ContinentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -74,7 +74,7 @@ namespace GeoService.EF.Migrations
                     b.Navigation("Continent");
                 });
 
-            modelBuilder.Entity("GeoService.Domain.Models.Continent", b =>
+            modelBuilder.Entity("GeoService.EF.Models.ContinentDB", b =>
                 {
                     b.Navigation("Countries");
                 });

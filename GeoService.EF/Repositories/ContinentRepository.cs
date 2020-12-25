@@ -1,6 +1,8 @@
 ﻿using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
+using GeoService.EF.Mappers;
+using GeoService.EF.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,30 +17,36 @@ namespace GeoService.EF.Repositories
             this.context = context;
         }
 
-        public Continent AddContinent(Continent continent)
+        public void AddContinent(Continent continent)
         {
-            context.Continents.Add(continent);
-            return continent;
+            ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
+            context.Continents.Add(continentDB);
         }
 
         public Continent Find(int id)
         {
-            return context.Continents.Find(id);
+            ContinentDB continentDB = context.Continents.Find(id);
+            Continent continent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
+            return continent;
         }
 
         public List<Country> GetCountries(int id)
         {
-            return context.Countries.Where(x => x.Continent.Id == id).ToList();
+            List<CountryDB> countryDBs = context.Countries.Where(x => x.ContinentId == id).ToList();
+            List<Country> countries = CountryMapper.CountryDBListToBusinessModel(countryDBs);
+            return countries;
         }
 
         public void RemoveContinent(Continent continent)
         {
-            context.Continents.Remove(continent);
+            ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
+            context.Continents.Remove(continentDB);
         }
 
         public void UpdateContinent(Continent oldContinent, Continent newContinent)
         {
             oldContinent.Name = newContinent.Name;
+            //TODO countries?
         }
     }
 }

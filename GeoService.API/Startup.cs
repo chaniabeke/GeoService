@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace GeoService.API
 {
@@ -13,7 +14,9 @@ namespace GeoService.API
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder().AddConfiguration(configuration)
+                .AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "Properties", "launchSettings.json"));
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +29,9 @@ namespace GeoService.API
                 setup.ReturnHttpNotAcceptable = true;
             }).AddNewtonsoftJson()
             .AddXmlDataContractSerializerFormatters();
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<ContinentManager>();
+            services.AddTransient<CountryManager>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
         }
 

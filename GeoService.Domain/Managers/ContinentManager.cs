@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GeoService.Domain.Managers
 {
-    public class ContinentManager : IContinentRepository
+    public class ContinentManager
     {
         private IUnitOfWork uow;
 
@@ -22,7 +22,15 @@ namespace GeoService.Domain.Managers
 
         public Continent Find(int id)
         {
-            return uow.Continents.Find(id);
+            Continent continent = uow.Continents.Find(id);
+            foreach (var country in GetCountries(id))
+            {
+                if (!continent.HasCountry(country))
+                {
+                    continent.AddCountry(country);
+                }
+            }
+            return continent;
         }
 
         public List<Country> GetCountries(int id)

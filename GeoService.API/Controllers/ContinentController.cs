@@ -2,6 +2,7 @@
 using GeoService.API.Models;
 using GeoService.Domain.Managers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -13,45 +14,64 @@ namespace GeoService.API.Controllers
     {
         private readonly ContinentManager manager;
         private readonly ILogger logger;
+        private string hostUrl;
 
-        public ContinentController(ContinentManager manager, ILoggerFactory loggerFactory)
+        public ContinentController(IConfiguration iconfiguration, ContinentManager manager, ILoggerFactory loggerFactory)
         {
+            hostUrl = iconfiguration.GetValue<string>("profiles:GeoService.Api:applicationUrl");
             this.manager = manager;
-            this.logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
+            logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
         }
 
         [HttpPost]
-        public ActionResult<ContinentApi> Post([FromBody] ContinentApi continentAPI)
+        public ActionResult<ContinentInApi> PostContinent([FromBody] ContinentInApi continentAPI)
         {
-            Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(continentAPI);
-            Domain.Models.Continent continentCreated = manager.AddContinent(continent);
-            if (continentCreated != null)
+            logger.LogInformation($"Post api/continent/ called");
+            try
             {
-                //TODO CustomerId als link
-                return CreatedAtAction(nameof(Get), new { id = continentCreated.Id }, continentCreated);
+                Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(continentAPI);
+                Domain.Models.Continent continentCreated = manager.AddContinent(continent);
+                if (continentCreated != null)
+                {
+                    //TODO RETURN WITH CORRECT CONTINENT ID
+                    ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continentCreated);
+                    return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
+                }
+                else
+                {
+                    logger.LogError("error");
+                    return NotFound("not found message");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //TODO return exception
-                return NotFound("not found message");
+                logger.LogError(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
         [HttpGet("{id}")]
         [HttpHead("{id}")]
-        public ActionResult<ContinentApi> Get(int id)
+        public ActionResult<ContinentOutApi> GetContinent(int id)
         {
+            logger.LogInformation(id, $"Get api/continent/{id} called");
             try
             {
-                //logger.LogInformation(1001,"Get called");
-                //logger.LogCritical("Critical log");
-                //logger.LogDebug("Debug log");
-                //logger.LogError("error log");
-                //logger.LogTrace("trace log");
-                return Ok(manager.Find(id));
+                Domain.Models.Continent continent = manager.Find(id);
+                if (continent != null)
+                {
+                    ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continent);
+                    return Ok(continentOut);
+                }
+                else
+                {
+                    logger.LogError($"Continent with {id} is not found");
+                    return NotFound($"Continent with {id} is not found");
+                }
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.InnerException.Message);
                 return NotFound(ex.Message);
             }
         }

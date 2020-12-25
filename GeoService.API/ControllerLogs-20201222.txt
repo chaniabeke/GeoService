@@ -1,8 +1,0 @@
-2020-12-22T23:09:52.4296918+01:00  [INF] Get called (157092f2)
-2020-12-22T23:09:52.4377055+01:00  [FTL] Critical log (f958a3f4)
-2020-12-22T23:09:52.4393348+01:00  [ERR] error log (fb6c2d3f)
-2020-12-22T23:10:01.4311192+01:00  [INF] Application is shutting down... (90f52c38)
-2020-12-22T23:10:09.8703257+01:00  [INF] Get called (157092f2)
-2020-12-22T23:10:09.8797739+01:00  [FTL] Critical log (f958a3f4)
-2020-12-22T23:10:09.8815138+01:00  [ERR] error log (fb6c2d3f)
-2020-12-22T23:11:06.0214252+01:00  [INF] Application is shutting down... (90f52c38)

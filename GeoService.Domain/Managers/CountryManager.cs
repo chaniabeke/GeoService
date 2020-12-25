@@ -17,9 +17,9 @@ namespace GeoService.Domain.Managers
             uow.Countries.AddCountry(country);
         }
 
-        public Country Find(int id)
+        public Country Find(int continentId, int countryId)
         {
-            return uow.Countries.Find(id);
+            return uow.Countries.Find(continentId, countryId);
         }
 
         public void RemoveCountry(Country country)

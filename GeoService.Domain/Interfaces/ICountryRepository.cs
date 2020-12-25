@@ -10,6 +10,6 @@ namespace GeoService.Domain.Interfaces
 
         void RemoveCountry(Country country);
 
-        Country Find(int id);
+        Country Find(int continentId, int countryId);
     }
 }
