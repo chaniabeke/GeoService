@@ -22,6 +22,17 @@ namespace GeoService.EF.Repositories
             ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
             context.Continents.Add(continentDB);
             context.SaveChanges();
+           // //context.Dispose();
+           // foreach (Country country in continent.Countries)
+           // {
+           //     CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+           //     countryDB.ContinentId = continentDB.Id;
+           //     countryDB.Continent = continentDB;
+           //     //continentDB.Countries.Add(countryDB);
+           //    //context.Countries.Update(countryDB);
+           // }
+           //// context.Continents.Update(continentDB);
+           // context.SaveChanges();
             Continent newContinent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
             return newContinent;
         }
@@ -46,10 +57,21 @@ namespace GeoService.EF.Repositories
             context.Continents.Remove(continentDB);
         }
 
-        public void UpdateContinent(Continent oldContinent, Continent newContinent)
+        //public void UpdateContinent(Continent oldContinent, Continent newContinent)
+        //{
+        //    ContinentDB oldContinentDB = ContinentMapper.ContinentToDBModel(oldContinent);
+        //    ContinentDB newContinentDB = ContinentMapper.ContinentToDBModel(newContinent);
+        //    oldContinentDB.Name = newContinentDB.Name;
+        //    oldContinentDB.Countries = newContinentDB.Countries;
+        //   // context.Update(oldContinentDB);
+        //}
+
+        public void UpdateContinent(int id, string name)
         {
-            oldContinent.Name = newContinent.Name;
-            //TODO EF - update countries?
+            ContinentDB continentDB = context.Continents.Find(id);
+            continentDB.Name = name;
+
+            //continentDB.Countries = countries;
         }
     }
 }

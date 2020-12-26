@@ -13,14 +13,14 @@ namespace GeoService.EF.Mappers
             ContinentDB continentDB = new ContinentDB();
             continentDB.Id = continent.Id;
             continentDB.Name = continent.Name;
-            foreach (Country country in continent.Countries)
-            {
-                if (country != null)
-                {
-                    CountryDB countryDB = CountryMapper.CountryToDBModel(country);
-                    continentDB.Countries.Add(countryDB);
-                }
-            }
+            //foreach (Country country in continent.Countries)
+            //{
+            //    if (country != null)
+            //    {
+            //        CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+            //        continentDB.Countries.Add(countryDB);
+            //    }
+            //}
             return continentDB;
         }
 
@@ -31,26 +31,26 @@ namespace GeoService.EF.Mappers
             {
                 continent.Id = continentDB.Id;
                 continent.Name = continentDB.Name;
-                foreach (CountryDB countryDB in continentDB.Countries)
-                {
-                    if (countryDB != null)
-                    {
-                        Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
-                        continent.AddCountry(country);
-                    }
-                }
+                //foreach (CountryDB countryDB in continentDB.Countries)
+                //{
+                //    if (countryDB != null)
+                //    {
+                //        Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+                //        continent.AddCountry(country);
+                //    }
+                //}
                 return continent;
             }
             return null;
         }
 
-        internal static Continent ContinentDBWithoutCountriesToBusinessModel(ContinentDB continentDB)
-        {
-            Continent continent = new Continent();
-            continent.Id = continentDB.Id;
-            continent.Name = continentDB.Name;
-            return continent;
-        }
+        //internal static Continent ContinentDBWithoutCountriesToBusinessModel(ContinentDB continentDB)
+        //{
+        //    Continent continent = new Continent();
+        //    continent.Id = continentDB.Id;
+        //    continent.Name = continentDB.Name;
+        //    return continent;
+        //}
         
     }
 }

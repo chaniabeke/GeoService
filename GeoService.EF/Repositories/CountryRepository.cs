@@ -26,7 +26,10 @@ namespace GeoService.EF.Repositories
 
         public Country Find(int countryId)
         {
+            //TODO continnetn id naar object
             CountryDB countryDB = context.Countries.Find(countryId);
+            ContinentDB continentDB = context.Continents.Find(countryDB.ContinentId);
+            countryDB.ContinentId = continentDB.Id;
             Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
             return country;
         }
@@ -35,8 +38,8 @@ namespace GeoService.EF.Repositories
         {
             CountryDB countryDB = context.Countries.Find(countryId);
             ContinentDB continentDB = context.Continents.Find(continentId);
-            countryDB.Continent = continentDB;
             countryDB.ContinentId = continentId;
+            countryDB.Continent = continentDB;
             Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
             return country;
         }
@@ -47,12 +50,23 @@ namespace GeoService.EF.Repositories
             context.Countries.Remove(countryDB);
         }
 
-        public void UpdateCountry(Country oldCountry, Country newCountry)
+        public void UpdateCountry(Country country, string name, Continent continent, int population, double surface)
         {
-            oldCountry.Continent = newCountry.Continent;
-            oldCountry.Population = newCountry.Population;
-            oldCountry.Name = newCountry.Name;
-            oldCountry.Surface = newCountry.Surface;
+            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+            countryDB.Name = name;
+            countryDB.ContinentId = continent.Id;
+            countryDB.Population = population;
+            countryDB.Surface = surface;
+            context.SaveChanges();
+        }
+
+        public void UpdateCountry(int id, string name, int continentId, int population, double surface)
+        {
+            CountryDB countryDB = context.Countries.Find(id);
+            countryDB.Name = name;
+            countryDB.ContinentId = continentId;
+            countryDB.Population = population;
+            countryDB.Surface = surface;
         }
     }
 }

@@ -95,8 +95,8 @@ namespace GeoService.Domain.Models
         public void AddCountry(Country country)
         {
             if (country == null) throw new ContinentException("Continent - AddCountry : invalid country");
-            if (_countries.Contains(country))
-                throw new ContinentException("Continent - AddCountry : country already exists");
+            //if (_countries.Contains(country))
+             //   throw new ContinentException("Continent - AddCountry : country already exists");
 
             _countries.Add(country);
             if (country.Continent != this) country.Continent = this;

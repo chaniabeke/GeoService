@@ -7,7 +7,7 @@ namespace GeoService.Domain.Interfaces
     {
         Continent AddContinent(Continent continent);
 
-        void UpdateContinent(Continent oldContinent, Continent newContinent);
+        void UpdateContinent(int id, string name);
 
         void RemoveContinent(Continent continent);
 

@@ -26,7 +26,6 @@ namespace GeoService.API.Controllers
             logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
         }
 
-        //TODO Fix add existing countries with new continent
         [HttpPost]
         public ActionResult<ContinentInApi> PostContinent([FromBody] ContinentInApi continentAPI)
         {
@@ -52,6 +51,27 @@ namespace GeoService.API.Controllers
                 logger.LogError(ex.Message);
                 return NotFound(ex.Message);
             }
+        }
+
+        //TODO API - badrequest
+        //TODO update continent with countries
+        
+        [HttpPut("{id}")]
+        public IActionResult PutContinent(int id, [FromBody] ContinentInApi continentIn)
+        {
+            //if (continentIn == null || continentIn.Id != id)
+            //{
+            //    return BadRequest();
+            //}
+            if (continentManager.Find(id) == null)
+            {
+                Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(countryManager, continentIn);
+                Domain.Models.Continent continentCreated = continentManager.AddContinent(continent);
+                ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continentCreated);
+                return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
+            }
+            continentManager.UpdateContinent(id, continentIn.Name);
+            return new NoContentResult();
         }
 
         [HttpGet("{id}")]

@@ -6,7 +6,7 @@ namespace GeoService.Domain.Interfaces
     {
         Country AddCountry(Country country);
 
-        void UpdateCountry(Country oldCountry, Country newCountry);
+        void UpdateCountry(int id, string name, int continentId, int population, double surface);
 
         void RemoveCountry(Country country);
 

@@ -16,18 +16,28 @@ namespace GeoService.Domain.Managers
         public Continent AddContinent(Continent continent)
         {
             Continent continentNew = uow.Continents.AddContinent(continent);
-            //uow.Complete();
+            //TODO manager if country exist, else exception
+            foreach (var countryNew in continent.Countries)
+            {
+                uow.Countries.UpdateCountry(countryNew.Id, countryNew.Name,
+                    continentNew.Id, countryNew.Population, countryNew.Surface);
+            }
+            uow.Complete();
+            continentNew = Find(continentNew.Id);
             return continentNew;
         }
 
         public Continent Find(int id)
         {
             Continent continent = uow.Continents.Find(id);
-            foreach (var country in GetCountries(id))
+            if (GetCountries(id).Count != 0)
             {
-                if (!continent.HasCountry(country))
+                foreach (var country in GetCountries(id))
                 {
-                    continent.AddCountry(country);
+                    if (!continent.HasCountry(country))
+                    {
+                        continent.AddCountry(country);
+                    }
                 }
             }
             return continent;
@@ -43,9 +53,10 @@ namespace GeoService.Domain.Managers
             uow.Continents.RemoveContinent(continent);
         }
 
-        public void UpdateContinent(Continent oldContinent, Continent newContinent)
+        public void UpdateContinent(int id, string name)
         {
-            uow.Continents.UpdateContinent(oldContinent, newContinent);
+            uow.Continents.UpdateContinent(id, name);
+            uow.Complete();
         }
     }
 }

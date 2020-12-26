@@ -32,9 +32,9 @@ namespace GeoService.Domain.Managers
             uow.Countries.RemoveCountry(country);
         }
 
-        public void UpdateCountry(Country oldCountry, Country newCountry)
+        public void UpdateCountry(int id, string name, int continentId, int population, double surface)
         {
-            uow.Countries.UpdateCountry(oldCountry, newCountry);
+            uow.Countries.UpdateCountry(id, name, continentId, population, surface);
         }
     }
 }
