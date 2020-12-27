@@ -20,9 +20,10 @@ namespace GeoService.API.Mappers
             }
             return continent;
         }
+
         public static ContinentOutApi ContinentOutMapper(string hostUrl, Continent continent)
         {
-            ContinentOutApi continentOut= new ContinentOutApi();
+            ContinentOutApi continentOut = new ContinentOutApi();
             continentOut.Id = hostUrl + "/api/continent/" + continent.Id;
             continentOut.Name = continent.Name;
             if (continent.Countries != null)

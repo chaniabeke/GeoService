@@ -6,12 +6,14 @@ namespace GeoService.Domain.Interfaces
     {
         Country AddCountry(Country country);
 
-        void UpdateCountry(int id, string name, int continentId, int population, double surface);
+        void UpdateCountry(int countryId, Country country);
 
-        void RemoveCountry(Country country);
+        void RemoveCountry(int countryId);
 
         Country Find(int countryId);
 
         Country Find(int continentId, int countryId);
+
+        Country Find(string countryName);
     }
 }

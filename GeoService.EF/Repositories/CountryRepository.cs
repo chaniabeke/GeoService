@@ -3,6 +3,7 @@ using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
 using GeoService.EF.Mappers;
 using GeoService.EF.Models;
+using System;
 
 namespace GeoService.EF.Repositories
 {
@@ -17,56 +18,96 @@ namespace GeoService.EF.Repositories
 
         public Country AddCountry(Country country)
         {
-            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
-            context.Countries.Add(countryDB);
-            context.SaveChanges();
-            Country newCountry = CountryMapper.CountryDBToBusinessModel(countryDB);
-            return newCountry;
+            try
+            {
+                CountryDB countryDB = CountryMapper.CountryToDBModel(country);
+                context.Countries.Add(countryDB);
+                context.SaveChanges();
+                Country newCountry = CountryMapper.CountryDBToBusinessModel(countryDB);
+                return newCountry;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Country Find(int countryId)
         {
-            //TODO continnetn id naar object
-            CountryDB countryDB = context.Countries.Find(countryId);
-            ContinentDB continentDB = context.Continents.Find(countryDB.ContinentId);
-            countryDB.ContinentId = continentDB.Id;
-            Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
-            return country;
+            try
+            {
+                CountryDB countryDB = context.Countries.Find(countryId);
+                ContinentDB continentDB = context.Continents.Find(countryDB.ContinentId);
+                countryDB.ContinentId = continentDB.Id;
+                countryDB.Continent = continentDB;
+                Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+                return country;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Country Find(int continentId, int countryId)
         {
-            CountryDB countryDB = context.Countries.Find(countryId);
-            ContinentDB continentDB = context.Continents.Find(continentId);
-            countryDB.ContinentId = continentId;
-            countryDB.Continent = continentDB;
-            Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
-            return country;
+            try
+            {
+                CountryDB countryDB = context.Countries.Find(countryId);
+                ContinentDB continentDB = context.Continents.Find(continentId);
+                countryDB.ContinentId = continentId;
+                countryDB.Continent = continentDB;
+                Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+                return country;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void RemoveCountry(Country country)
+        public Country Find(string countryName)
         {
-            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
-            context.Countries.Remove(countryDB);
+            try
+            {
+                CountryDB countryDB = context.Countries.Find(countryName);
+                Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
+                return country;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void UpdateCountry(Country country, string name, Continent continent, int population, double surface)
+        public void RemoveCountry(int countryId)
         {
-            CountryDB countryDB = CountryMapper.CountryToDBModel(country);
-            countryDB.Name = name;
-            countryDB.ContinentId = continent.Id;
-            countryDB.Population = population;
-            countryDB.Surface = surface;
-            context.SaveChanges();
+            try
+            {
+                CountryDB countryDB = context.Countries.Find(countryId);
+                context.Countries.Remove(countryDB);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void UpdateCountry(int id, string name, int continentId, int population, double surface)
+        public void UpdateCountry(int id, Country countryUpdated)
         {
-            CountryDB countryDB = context.Countries.Find(id);
-            countryDB.Name = name;
-            countryDB.ContinentId = continentId;
-            countryDB.Population = population;
-            countryDB.Surface = surface;
+            try
+            {
+                CountryDB countryDB = context.Countries.Find(id);
+                CountryDB countryDBUpdated = CountryMapper.CountryToDBModel(countryUpdated);
+                countryDB.Name = countryDBUpdated.Name;
+                countryDB.ContinentId = countryDBUpdated.ContinentId;
+                countryDB.Population = countryDBUpdated.Population;
+                countryDB.Surface = countryDBUpdated.Surface;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

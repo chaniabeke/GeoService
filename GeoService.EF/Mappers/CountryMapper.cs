@@ -1,10 +1,6 @@
-﻿using GeoService.Domain.Managers;
-using GeoService.Domain.Models;
-using GeoService.EF.DataAccess;
+﻿using GeoService.Domain.Models;
 using GeoService.EF.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.EF.Mappers
 {
@@ -32,10 +28,11 @@ namespace GeoService.EF.Mappers
             country.Continent = ContinentMapper.ContinentDBToBusinessModel(countryDB.Continent);
             return country;
         }
+
         internal static List<Country> CountryDBListToBusinessModel(List<CountryDB> countryDBs)
         {
             List<Country> countries = new List<Country>();
-            foreach(CountryDB countryDB in countryDBs)
+            foreach (CountryDB countryDB in countryDBs)
             {
                 Country country = CountryDBToBusinessModel(countryDB);
                 countries.Add(country);

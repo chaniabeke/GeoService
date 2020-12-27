@@ -54,6 +54,7 @@ namespace GeoService.Domain.Models
         public Country()
         {
         }
+
         public Country(string name, int population, double surface)
         {
             this.Name = name;

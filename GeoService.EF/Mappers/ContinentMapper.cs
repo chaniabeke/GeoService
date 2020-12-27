@@ -1,8 +1,5 @@
 ﻿using GeoService.Domain.Models;
 using GeoService.EF.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GeoService.EF.Mappers
 {
@@ -51,6 +48,5 @@ namespace GeoService.EF.Mappers
         //    continent.Name = continentDB.Name;
         //    return continent;
         //}
-        
     }
 }

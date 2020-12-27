@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GeoService.EF.Models
 {
@@ -11,8 +8,10 @@ namespace GeoService.EF.Models
         public string Name { get; set; }
         public int Population { get; set; }
         public double Surface { get; set; }
+
         [ForeignKey("Continent")]
         public int ContinentId { get; set; }
+
         public ContinentDB Continent { get; set; }
     }
 }

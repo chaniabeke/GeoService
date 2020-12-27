@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using GeoService.Domain.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTests.Domain.Managers
 {

@@ -42,7 +42,11 @@ namespace GeoService.Domain.Models
         #endregion Properties
 
         #region Constructors
-        public Continent() { }
+
+        public Continent()
+        {
+        }
+
         public Continent(string name)
         {
             this.Name = name;
@@ -96,7 +100,7 @@ namespace GeoService.Domain.Models
         {
             if (country == null) throw new ContinentException("Continent - AddCountry : invalid country");
             //if (_countries.Contains(country))
-             //   throw new ContinentException("Continent - AddCountry : country already exists");
+            //   throw new ContinentException("Continent - AddCountry : country already exists");
 
             _countries.Add(country);
             if (country.Continent != this) country.Continent = this;

@@ -6,7 +6,7 @@ namespace GeoService.API.Mappers
 {
     public static class CountryMapper
     {
-        public static Country CountryInMapper(ContinentManager continentManager,CountryInApi countryIn)
+        public static Country CountryInMapper(ContinentManager continentManager, CountryInApi countryIn)
         {
             Country country = new Country();
             country.Name = countryIn.Name;
@@ -15,6 +15,7 @@ namespace GeoService.API.Mappers
             country.Continent = continentManager.Find(countryIn.ContinentId);
             return country;
         }
+
         public static CountryOutApi CountryOutMapper(string hostUrl, Country country)
         {
             CountryOutApi countryOut = new CountryOutApi();

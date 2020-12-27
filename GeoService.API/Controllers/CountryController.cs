@@ -26,7 +26,6 @@ namespace GeoService.API.Controllers
             logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Country");
         }
 
-
         [HttpPost("{continentId}/country")]
         public ActionResult<CountryInApi> PostCountry([FromBody] CountryInApi countryInApi)
         {
@@ -38,8 +37,11 @@ namespace GeoService.API.Controllers
                 if (countryCreated != null)
                 {
                     CountryOutApi countryOut = CountryMapper.CountryOutMapper(hostUrl, countryCreated);
-                    return CreatedAtAction(nameof(GetCountry), new { continentId = countryCreated.Continent.Id, 
-                        countryId = countryCreated.Id }, countryOut);
+                    return CreatedAtAction(nameof(GetCountry), new
+                    {
+                        continentId = countryCreated.Continent.Id,
+                        countryId = countryCreated.Id
+                    }, countryOut);
                 }
                 else
                 {
@@ -56,7 +58,7 @@ namespace GeoService.API.Controllers
 
         [HttpGet("{continentId}/country/{countryId}")]
         [HttpHead("{continentId}/country/{countryId}")]
-        public ActionResult<CountryOutApi>GetCountry(int continentId, int countryId)
+        public ActionResult<CountryOutApi> GetCountry(int continentId, int countryId)
         {
             logger.LogInformation(countryId, $"Get api/continent/{continentId}/country/{countryId} called");
             try

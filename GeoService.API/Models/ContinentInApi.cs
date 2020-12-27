@@ -1,5 +1,4 @@
-﻿using GeoService.Domain.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GeoService.API.Models
 {

@@ -8,13 +8,12 @@ namespace ConsoleApp
     {
         private static void Main(string[] args)
         {
-             ContinentManager manager = new ContinentManager(new UnitOfWork());
+            ContinentManager manager = new ContinentManager(new UnitOfWork());
 
             Continent continent = new Continent("Europe");
             continent.AddCountry(new Country("France", 5554285, 25742543265.527));
             continent.AddCountry(new Country("Spain", 252754, 57425742874.557));
             manager.AddContinent(continent);
-
         }
     }
 }

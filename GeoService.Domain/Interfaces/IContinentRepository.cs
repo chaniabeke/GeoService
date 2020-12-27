@@ -7,12 +7,14 @@ namespace GeoService.Domain.Interfaces
     {
         Continent AddContinent(Continent continent);
 
-        void UpdateContinent(int id, string name);
+        void UpdateContinent(int continentId, Continent updatedContinent);
 
-        void RemoveContinent(Continent continent);
+        void RemoveContinent(int continentId);
 
-        Continent Find(int id);
+        Continent Find(int continentId);
 
-        List<Country> GetCountries(int id);
+        Continent Find(string continentName);
+
+        List<Country> GetCountries(int continentId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using GeoService.Domain.Interfaces;
+﻿using GeoService.Domain.Exceptions;
+using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
 
 namespace GeoService.Domain.Managers
@@ -14,27 +15,51 @@ namespace GeoService.Domain.Managers
 
         public Country AddCountry(Country country)
         {
+            if (country == null) throw new CountryManagerException("Add Continent - continent cannot be null");
+            if (Find(country.Name) != null)
+                throw new CountryManagerException($"Add Country - Country with name: {country.Name} already exist.");
+
             return uow.Countries.AddCountry(country);
         }
 
         public Country Find(int countryId)
         {
+            if (countryId < 0) throw new CountryManagerException("FindCountry - invalid id");
+
             return uow.Countries.Find(countryId);
         }
 
         public Country Find(int continentId, int countryId)
         {
-            return uow.Countries.Find(continentId, countryId);
+            Country country = uow.Countries.Find(continentId, countryId);
+
+            if (country.Continent.Id != continentId)
+                throw new CountryManagerException("FindCountry - continent doesn't belong to country");
+
+            return country;
         }
 
-        public void RemoveCountry(Country country)
+        public Country Find(string countryName)
         {
-            uow.Countries.RemoveCountry(country);
+            if (countryName.Trim().Length <= 0) throw new CountryManagerException("FindCountry - invalid CountryName.");
+            return uow.Countries.Find(countryName);
         }
 
-        public void UpdateCountry(int id, string name, int continentId, int population, double surface)
+        public void RemoveCountry(int countryId)
         {
-            uow.Countries.UpdateCountry(id, name, continentId, population, surface);
+            if (Find(countryId) == null)
+                throw new CountryManagerException("Country doesn't exist");
+
+            uow.Countries.RemoveCountry(countryId);
+        }
+
+        public void UpdateCountry(int id, Country countryUpdated)
+        {
+            if (countryUpdated == null) throw new CountryManagerException("Add Continent - continent cannot be null");
+            if (Find(countryUpdated.Name) != null)
+                throw new CountryManagerException($"Add Country - Country with name: {countryUpdated.Name} already exist.");
+
+            uow.Countries.UpdateCountry(id, countryUpdated);
         }
     }
 }

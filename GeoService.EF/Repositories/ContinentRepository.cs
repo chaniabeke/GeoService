@@ -3,6 +3,7 @@ using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
 using GeoService.EF.Mappers;
 using GeoService.EF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,59 +20,89 @@ namespace GeoService.EF.Repositories
 
         public Continent AddContinent(Continent continent)
         {
-            ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
-            context.Continents.Add(continentDB);
-            context.SaveChanges();
-           // //context.Dispose();
-           // foreach (Country country in continent.Countries)
-           // {
-           //     CountryDB countryDB = CountryMapper.CountryToDBModel(country);
-           //     countryDB.ContinentId = continentDB.Id;
-           //     countryDB.Continent = continentDB;
-           //     //continentDB.Countries.Add(countryDB);
-           //    //context.Countries.Update(countryDB);
-           // }
-           //// context.Continents.Update(continentDB);
-           // context.SaveChanges();
-            Continent newContinent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
-            return newContinent;
+            try
+            {
+                ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
+                context.Continents.Add(continentDB);
+                context.SaveChanges();
+                Continent newContinent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
+                return newContinent;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Continent Find(int id)
+        public Continent Find(int continentId)
         {
-            ContinentDB continentDB = context.Continents.Find(id);
-            Continent continent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
-            return continent;
+            try
+            {
+                ContinentDB continentDB = context.Continents.Find(continentId);
+                Continent continent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
+                return continent;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public List<Country> GetCountries(int id)
+        public Continent Find(string continentName)
         {
-            List<CountryDB> countryDBs = context.Countries.Where(x => x.ContinentId == id).ToList();
-            List<Country> countries = CountryMapper.CountryDBListToBusinessModel(countryDBs);
-            return countries;
+            try
+            {
+                ContinentDB continentDB = context.Continents.Find(continentName);
+                Continent continent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
+                return continent;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void RemoveContinent(Continent continent)
+        public List<Country> GetCountries(int continentId)
         {
-            ContinentDB continentDB = ContinentMapper.ContinentToDBModel(continent);
-            context.Continents.Remove(continentDB);
+            try
+            {
+                List<CountryDB> countryDBs = context.Countries.Where(x => x.ContinentId == continentId).ToList();
+                List<Country> countries = CountryMapper.CountryDBListToBusinessModel(countryDBs);
+                return countries;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        //public void UpdateContinent(Continent oldContinent, Continent newContinent)
-        //{
-        //    ContinentDB oldContinentDB = ContinentMapper.ContinentToDBModel(oldContinent);
-        //    ContinentDB newContinentDB = ContinentMapper.ContinentToDBModel(newContinent);
-        //    oldContinentDB.Name = newContinentDB.Name;
-        //    oldContinentDB.Countries = newContinentDB.Countries;
-        //   // context.Update(oldContinentDB);
-        //}
-
-        public void UpdateContinent(int id, string name)
+        public void RemoveContinent(int continentId)
         {
-            ContinentDB continentDB = context.Continents.Find(id);
-            continentDB.Name = name;
+            try
+            {
+                ContinentDB continentDB = context.Continents.Find(continentId);
+                context.Continents.Remove(continentDB);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-            //continentDB.Countries = countries;
+        public void UpdateContinent(int id, Continent continentUpdated)
+        {
+            try
+            {
+                ContinentDB continentDB = context.Continents.Find(id);
+                ContinentDB continentDBUpdated = ContinentMapper.ContinentToDBModel(continentUpdated);
+
+                continentDB.Name = continentDBUpdated.Name;
+                continentDB.Countries = continentDBUpdated.Countries;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

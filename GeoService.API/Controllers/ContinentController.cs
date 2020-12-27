@@ -12,12 +12,18 @@ namespace GeoService.API.Controllers
     [Route("api/[controller]")]
     public class ContinentController : ControllerBase
     {
+        #region Fields
+
         private readonly ContinentManager continentManager;
         private readonly CountryManager countryManager;
         private readonly ILogger logger;
         private string hostUrl;
 
-        public ContinentController(IConfiguration iconfiguration, ContinentManager continentManager, 
+        #endregion Fields
+
+        #region Constructor
+
+        public ContinentController(IConfiguration iconfiguration, ContinentManager continentManager,
             CountryManager countryManager, ILoggerFactory loggerFactory)
         {
             hostUrl = iconfiguration.GetValue<string>("profiles:GeoService.Api:applicationUrl");
@@ -25,6 +31,10 @@ namespace GeoService.API.Controllers
             this.countryManager = countryManager;
             logger = loggerFactory.AddFile("ControllerLogs.txt").CreateLogger("Continent");
         }
+
+        #endregion Constructor
+
+        #region Methods
 
         [HttpPost]
         public ActionResult<ContinentInApi> PostContinent([FromBody] ContinentInApi continentAPI)
@@ -55,23 +65,29 @@ namespace GeoService.API.Controllers
 
         //TODO API - badrequest
         //TODO update continent with countries
-        
+
         [HttpPut("{id}")]
         public IActionResult PutContinent(int id, [FromBody] ContinentInApi continentIn)
         {
-            //if (continentIn == null || continentIn.Id != id)
-            //{
-            //    return BadRequest();
-            //}
-            if (continentManager.Find(id) == null)
+            if (continentIn == null) return BadRequest();
+            try
             {
-                Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(countryManager, continentIn);
-                Domain.Models.Continent continentCreated = continentManager.AddContinent(continent);
-                ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continentCreated);
-                return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
+                if (continentManager.Find(id) == null)
+                {
+                    Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(countryManager, continentIn);
+                    Domain.Models.Continent continentCreated = continentManager.AddContinent(continent);
+                    ContinentOutApi continentOut = ContinentMapper.ContinentOutMapper(hostUrl, continentCreated);
+                    return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
+                }
+                Domain.Models.Continent continentUpdate = ContinentMapper.ContinentInMapper(countryManager, continentIn);
+                continentManager.UpdateContinent(id, continentUpdate);
+                return new NoContentResult();
             }
-            continentManager.UpdateContinent(id, continentIn.Name);
-            return new NoContentResult();
+            catch (Exception ex)
+            {
+                logger.LogError(ex.InnerException.Message);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
@@ -99,5 +115,26 @@ namespace GeoService.API.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteContinent(int id)
+        {
+            if (continentManager.Find(id) == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                continentManager.RemoveContinent(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.InnerException.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        #endregion Methods
     }
 }
