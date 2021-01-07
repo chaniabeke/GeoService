@@ -26,6 +26,7 @@ namespace GeoService.API.Mappers
             ContinentOutApi continentOut = new ContinentOutApi();
             continentOut.Id = hostUrl + "/api/continent/" + continent.Id;
             continentOut.Name = continent.Name;
+            continentOut.Population = continent.Population();
             if (continent.Countries != null)
             {
                 foreach (Country country in continent.Countries)

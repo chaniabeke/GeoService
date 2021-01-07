@@ -8,12 +8,14 @@ namespace ConsoleApp
     {
         private static void Main(string[] args)
         {
-            ContinentManager manager = new ContinentManager(new UnitOfWork());
+            //ContinentManager continentManager = new ContinentManager(new UnitOfWork());
+            //CountryManager countryManager = new CountryManager(new UnitOfWork());
 
-            Continent continent = new Continent("Europe");
-            continent.AddCountry(new Country("France", 5554285, 25742543265.527));
-            continent.AddCountry(new Country("Spain", 252754, 57425742874.557));
-            manager.AddContinent(continent);
+            //Continent continent1 = new Continent("Asia");
+            //Continent continentWithId = continentManager.AddContinent(continent1);
+            //Country country = new Country("China", 5454445, 54545121.545, continentWithId);
+            //countryManager.AddCountry(country);
+            
         }
     }
 }

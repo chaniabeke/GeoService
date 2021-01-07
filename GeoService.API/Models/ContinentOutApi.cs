@@ -6,6 +6,7 @@ namespace GeoService.API.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public int Population { get; set; }
         public List<string> Countries { get; set; } = new List<string>();
     }
 }

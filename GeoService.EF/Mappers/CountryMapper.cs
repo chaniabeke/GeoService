@@ -14,7 +14,6 @@ namespace GeoService.EF.Mappers
             countryDB.Population = country.Population;
             countryDB.Surface = country.Surface;
             countryDB.ContinentId = country.Continent.Id;
-            //countryDB.Continent = country.Continent;
             return countryDB;
         }
 
@@ -26,6 +25,17 @@ namespace GeoService.EF.Mappers
             country.Population = countryDB.Population;
             country.Surface = countryDB.Surface;
             country.Continent = ContinentMapper.ContinentDBToBusinessModel(countryDB.Continent);
+            return country;
+        }
+
+        internal static Country CountryDBToBusinessModel(CountryDB countryDB, Continent continent)
+        {
+            Country country = new Country();
+            country.Id = countryDB.Id;
+            country.Name = countryDB.Name;
+            country.Population = countryDB.Population;
+            country.Surface = countryDB.Surface;
+            country.Continent = continent;
             return country;
         }
 

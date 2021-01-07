@@ -1,6 +1,7 @@
 ﻿using GeoService.Domain.Exceptions;
 using GeoService.Domain.Interfaces;
 using GeoService.Domain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace GeoService.Domain.Managers
@@ -20,13 +21,13 @@ namespace GeoService.Domain.Managers
             if (Find(continent.Name) != null)
                 throw new ContinentManagerException($"Add Continent - Continent with name: {continent.Name} already exist.");
 
-            Continent continentNew = uow.Continents.AddContinent(continent);
+            Continent continentWithId = uow.Continents.AddContinent(continent);
 
-            UpdateCountries(continent, continentNew);
+            UpdateCountries(continentWithId, continent.Countries);
 
             uow.Complete();
-            continentNew = Find(continentNew.Id);
-            return continentNew;
+            continentWithId = Find(continentWithId.Id);
+            return continentWithId;
         }
 
         public Continent Find(int continentId)
@@ -56,29 +57,49 @@ namespace GeoService.Domain.Managers
 
         public void RemoveContinent(int continentId)
         {
+            //try
+            //{
             if (Find(continentId) == null)
-                throw new ContinentManagerException("Continent doesn't exist");
+                throw new ContinentManagerException("Remove Continent - Continent doesn't exist");
+            if (Find(continentId).Countries.Count > 0)
+                throw new ContinentManagerException("Remove Continent - Continent still has countries.");
+
             uow.Continents.RemoveContinent(continentId);
+
+            uow.Complete();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         public void UpdateContinent(int continentIdInDb, Continent updatedContinent)
         {
-            if (updatedContinent == null) throw new ContinentManagerException("Add Continent - continent cannot be null");
-            if (Find(updatedContinent.Name) != null)
-                throw new ContinentManagerException($"Add Continent - Continent with name: {updatedContinent.Name} already exist.");
+            if (updatedContinent == null) throw new ContinentManagerException("Update Continent - continent cannot be null");
+            if (Find(updatedContinent.Name) != null && Find(continentIdInDb).Name != Find(updatedContinent.Name).Name)
+                throw new ContinentManagerException($"Update Continent - Continent with name: {updatedContinent.Name} already exist.");
 
             uow.Continents.UpdateContinent(continentIdInDb, updatedContinent);
+
             if (updatedContinent.Countries.Count != 0) UpdateCountries(updatedContinent);
+
             uow.Complete();
         }
 
-        private void UpdateCountries(Continent continent, Continent continentNew)
+        private void UpdateCountries(Continent continentWithId, IReadOnlyList<Country> countries)
         {
-            foreach (var countryNew in continent.Countries)
+            List<Country> countriesList = new List<Country>();
+            foreach (var country in countries)
             {
-                if (uow.Countries.Find(countryNew.Id) == null)
-                    throw new ContinentManagerException($"Add Continent - Country with id: {countryNew.Id} doesn't exist.");
-                uow.Countries.UpdateCountry(countryNew.Id, countryNew);
+                countriesList.Add(country);
+            }
+            foreach (var country in countriesList)
+            {
+                if (uow.Countries.Find(country.Id) == null)
+                    throw new ContinentManagerException($"Add Continent - Country with id: {country.Id} doesn't exist.");
+                country.Continent = continentWithId;
+                uow.Countries.UpdateCountry(country.Id, country);
             }
         }
 

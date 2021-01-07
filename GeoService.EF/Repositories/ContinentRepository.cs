@@ -52,7 +52,7 @@ namespace GeoService.EF.Repositories
         {
             try
             {
-                ContinentDB continentDB = context.Continents.Find(continentName);
+                ContinentDB continentDB = context.Continents.Where(x => x.Name == continentName).FirstOrDefault();
                 Continent continent = ContinentMapper.ContinentDBToBusinessModel(continentDB);
                 return continent;
             }
@@ -97,7 +97,7 @@ namespace GeoService.EF.Repositories
                 ContinentDB continentDBUpdated = ContinentMapper.ContinentToDBModel(continentUpdated);
 
                 continentDB.Name = continentDBUpdated.Name;
-                continentDB.Countries = continentDBUpdated.Countries;
+                //continentDB.Countries = continentDBUpdated.Countries;
             }
             catch (Exception ex)
             {

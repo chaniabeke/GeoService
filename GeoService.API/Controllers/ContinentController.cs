@@ -64,11 +64,11 @@ namespace GeoService.API.Controllers
         }
 
         //TODO API - badrequest
-        //TODO update continent with countries
 
         [HttpPut("{id}")]
         public IActionResult PutContinent(int id, [FromBody] ContinentInApi continentIn)
         {
+            logger.LogInformation($"Put api/continent/ called");
             if (continentIn == null) return BadRequest();
             try
             {
@@ -85,7 +85,7 @@ namespace GeoService.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.InnerException.Message);
+                logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -111,7 +111,7 @@ namespace GeoService.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.InnerException.Message);
+                logger.LogError(ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -119,6 +119,7 @@ namespace GeoService.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteContinent(int id)
         {
+            logger.LogInformation(id, $"Delete api/continent/{id} called");
             if (continentManager.Find(id) == null)
             {
                 return NotFound();
@@ -130,7 +131,7 @@ namespace GeoService.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.InnerException.Message);
+                logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }

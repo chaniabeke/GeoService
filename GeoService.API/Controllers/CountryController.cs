@@ -27,9 +27,9 @@ namespace GeoService.API.Controllers
         }
 
         [HttpPost("{continentId}/country")]
-        public ActionResult<CountryInApi> PostCountry([FromBody] CountryInApi countryInApi)
+        public ActionResult<CountryInApi> PostCountry(int continentId, [FromBody] CountryInApi countryInApi)
         {
-            logger.LogInformation($"Post api/continent/ called");
+            logger.LogInformation($"Post api/continent/{continentId}/country/ called");
             try
             {
                 Domain.Models.Country country = CountryMapper.CountryInMapper(continentManager, countryInApi);
@@ -63,23 +63,73 @@ namespace GeoService.API.Controllers
             logger.LogInformation(countryId, $"Get api/continent/{continentId}/country/{countryId} called");
             try
             {
-                //TODO MANAGER - check if country is from continent
-                Domain.Models.Country country = countryManager.Find(continentId, countryId);
-                if (country != null)
+                if (continentManager.Find(continentId) != null && countryManager.Find(countryId) != null
+                    && countryManager.Find(countryId).Continent.Id == continentId)
                 {
+                    Domain.Models.Country country = countryManager.Find(continentId, countryId);
                     CountryOutApi countryOut = CountryMapper.CountryOutMapper(hostUrl, country);
                     return Ok(countryOut);
                 }
                 else
                 {
-                    logger.LogError($"Country with {countryId} is not found");
-                    return NotFound($"Country with {countryId} is not found");
+                    logger.LogError($"Country with id{countryId} is not found");
+                    return NotFound($"Country with id{countryId} is not found");
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.InnerException.Message);
+                logger.LogError(ex.Message);
                 return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPut("{continentId}/country/{countryId}")]
+        public IActionResult PutCountry(int continentId, int countryId, [FromBody] CountryInApi countryInApi)
+        {
+            logger.LogInformation($"Post api/continent/{continentId}/country/{countryId} called");
+            if (countryInApi == null) return BadRequest();
+            try
+            {
+                if (countryManager.Find(countryId) == null)
+                {
+                    Domain.Models.Country country = CountryMapper.CountryInMapper(continentManager, countryInApi);
+                    Domain.Models.Country countryCreated = countryManager.AddCountry(country);
+                    CountryOutApi countryOut = CountryMapper.CountryOutMapper(hostUrl, countryCreated);
+                    return CreatedAtAction(nameof(GetCountry), new { id = countryOut.Id }, countryOut);
+                }
+                Domain.Models.Country countryUpdate = CountryMapper.CountryInMapper(continentManager, countryInApi);
+                countryManager.UpdateCountry(countryId, countryUpdate);
+                return new NoContentResult();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.InnerException.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{continentId}/country/{countryId}")]
+        public IActionResult DeleteCountry(int continentId, int countryId)
+        {
+            logger.LogInformation($"delete api/continent/{continentId}/country/{countryId} called");
+            try
+            {
+                if (continentManager.Find(continentId) != null && countryManager.Find(countryId) != null
+                   && countryManager.Find(countryId).Continent.Id == continentId)
+                {
+                    countryManager.RemoveCountry(countryId);
+                    return NoContent();
+                }
+                else
+                {
+                    logger.LogError($"Country with id{countryId} is not found");
+                    return NotFound($"Country with id{countryId} is not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

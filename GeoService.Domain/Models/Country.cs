@@ -62,6 +62,11 @@ namespace GeoService.Domain.Models
             this.Population = population;
         }
 
+        public Country(string name, int population, double surface, Continent continent) : this(name, population, surface)
+        {
+            this.Continent = continent;
+        }
+
         public Country(int id, string name, int population, double surface)
         {
             this.Id = id;

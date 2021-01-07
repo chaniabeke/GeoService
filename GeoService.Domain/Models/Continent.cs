@@ -123,7 +123,6 @@ namespace GeoService.Domain.Models
             if (newCountry.Surface != 0) oldCountry.Surface = newCountry.Surface;
         }
 
-        //TODO MANAGER - verwijder land van continent wanneer land verwijdert wordt
         internal void DeleteCountry(Country country)
         {
             if (!_countries.Contains(country)) throw new ContinentException("Continent - DeleteCountry : country does not exist");
