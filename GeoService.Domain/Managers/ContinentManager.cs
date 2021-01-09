@@ -57,8 +57,6 @@ namespace GeoService.Domain.Managers
 
         public void RemoveContinent(int continentId)
         {
-            //try
-            //{
             if (Find(continentId) == null)
                 throw new ContinentManagerException("Remove Continent - Continent doesn't exist");
             if (Find(continentId).Countries.Count > 0)
@@ -67,21 +65,18 @@ namespace GeoService.Domain.Managers
             uow.Continents.RemoveContinent(continentId);
 
             uow.Complete();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
         }
 
         public void UpdateContinent(int continentIdInDb, Continent updatedContinent)
         {
+            if(Find(continentIdInDb) == null) throw new ContinentManagerException("Update Continent - Continent doesn't exist");
             if (updatedContinent == null) throw new ContinentManagerException("Update Continent - continent cannot be null");
             if (Find(updatedContinent.Name) != null && Find(continentIdInDb).Name != Find(updatedContinent.Name).Name)
                 throw new ContinentManagerException($"Update Continent - Continent with name: {updatedContinent.Name} already exist.");
 
             uow.Continents.UpdateContinent(continentIdInDb, updatedContinent);
-
+           // TODO use update country methode
+           // updatedContinent.UpdateCountry()
             if (updatedContinent.Countries.Count != 0) UpdateCountries(updatedContinent);
 
             uow.Complete();

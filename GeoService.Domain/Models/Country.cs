@@ -55,29 +55,32 @@ namespace GeoService.Domain.Models
         {
         }
 
-        public Country(string name, int population, double surface)
+        //public Country(string name, int population, double surface)
+        //{
+        //    this.Name = name;
+        //    this.Surface = surface;
+        //    this.Population = population;
+        //}
+
+        public Country(string name, int population, double surface, Continent continent)
         {
             this.Name = name;
             this.Surface = surface;
             this.Population = population;
-        }
-
-        public Country(string name, int population, double surface, Continent continent) : this(name, population, surface)
-        {
             this.Continent = continent;
         }
 
-        public Country(int id, string name, int population, double surface)
+        //public Country(int id, string name, int population, double surface)
+        //{
+        //    this.Id = id;
+        //    this.Name = name;
+        //    this.Surface = surface;
+        //    this.Population = population;
+        //}
+
+        public Country(int id, string name, int population, double surface, Continent continent): this(name, population, surface, continent)
         {
             this.Id = id;
-            this.Name = name;
-            this.Surface = surface;
-            this.Population = population;
-        }
-
-        public Country(int id, string name, int population, double surface, Continent continent) : this(id, name, population, surface)
-        {
-            this.Continent = continent;
         }
 
         #endregion Constructors

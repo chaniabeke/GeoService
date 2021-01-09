@@ -16,6 +16,14 @@ namespace GeoService.EF.DataAccess
             Countries = new CountryRepository(this.context);
         }
 
+        public UnitOfWork(DataContext context)
+        {
+            this.context = context;
+
+            Continents = new ContinentRepository(this.context);
+            Countries = new CountryRepository(this.context);
+        }
+
         public IContinentRepository Continents { get; private set; }
         public ICountryRepository Countries { get; private set; }
 

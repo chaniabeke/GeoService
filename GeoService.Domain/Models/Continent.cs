@@ -52,7 +52,14 @@ namespace GeoService.Domain.Models
             this.Name = name;
         }
 
-        public Continent(int id, string name)
+        public Continent(string name, List<Country> countries) : this(name)
+        {
+            this.Name = name;
+            this._countries = countries;
+            foreach (Country country in countries) country.Continent = this;
+        }
+
+        public Continent(int id, string name) : this(name)
         {
             this.Id = id;
             this.Name = name;
