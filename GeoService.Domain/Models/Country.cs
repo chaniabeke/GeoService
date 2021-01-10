@@ -55,12 +55,12 @@ namespace GeoService.Domain.Models
         {
         }
 
-        //public Country(string name, int population, double surface)
-        //{
-        //    this.Name = name;
-        //    this.Surface = surface;
-        //    this.Population = population;
-        //}
+        public Country(string name, int population, double surface)
+        {
+            this.Name = name;
+            this.Surface = surface;
+            this.Population = population;
+        }
 
         public Country(string name, int population, double surface, Continent continent)
         {
@@ -70,15 +70,15 @@ namespace GeoService.Domain.Models
             this.Continent = continent;
         }
 
-        //public Country(int id, string name, int population, double surface)
-        //{
-        //    this.Id = id;
-        //    this.Name = name;
-        //    this.Surface = surface;
-        //    this.Population = population;
-        //}
+        public Country(int id, string name, int population, double surface)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Surface = surface;
+            this.Population = population;
+        }
 
-        public Country(int id, string name, int population, double surface, Continent continent): this(name, population, surface, continent)
+        public Country(int id, string name, int population, double surface, Continent continent) : this(name, population, surface, continent)
         {
             this.Id = id;
         }
@@ -115,7 +115,6 @@ namespace GeoService.Domain.Models
         private Continent SetContinent(Continent newContinent)
         {
             if (newContinent == null) throw new CountryException("Country - SetContinent - invalid continent");
-            if (newContinent == Continent) throw new CountryException("Country - SetContinent - not new");
 
             //Check if old continent had country and deletes
             if (Continent != null)

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoService.EF.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201224153059_init")]
+    [Migration("20210110124101_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -97,7 +97,6 @@ namespace GeoService.EF.Repositories
                 ContinentDB continentDBUpdated = ContinentMapper.ContinentToDBModel(continentUpdated);
 
                 continentDB.Name = continentDBUpdated.Name;
-                //continentDB.Countries = continentDBUpdated.Countries;
             }
             catch (Exception ex)
             {

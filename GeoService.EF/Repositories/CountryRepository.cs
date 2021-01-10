@@ -41,7 +41,7 @@ namespace GeoService.EF.Repositories
                 if (countryDB != null)
                 {
                     ContinentDB continentDB = context.Continents.Find(countryDB.ContinentId);
-                
+
                     countryDB.ContinentId = continentDB.Id;
                     countryDB.Continent = continentDB;
                     Country country = CountryMapper.CountryDBToBusinessModel(countryDB);
@@ -81,7 +81,7 @@ namespace GeoService.EF.Repositories
             try
             {
                 CountryDB countryDB = context.Countries.Where(x => x.Name == countryName).FirstOrDefault();
-                if(countryDB != null) return CountryMapper.CountryDBToBusinessModel(countryDB);
+                if (countryDB != null) return CountryMapper.CountryDBToBusinessModel(countryDB);
                 return null;
             }
             catch (Exception ex)
@@ -103,22 +103,13 @@ namespace GeoService.EF.Repositories
             }
         }
 
-        public void UpdateCountry(int id, Country countryUpdated)
+        public void UpdateCountry(int id, Country countryUpdated, int newContinentId)
         {
             try
             {
                 CountryDB countryDB = context.Countries.Find(id);
                 CountryDB countryDBUpdated = CountryMapper.CountryToDBModel(countryUpdated);
-                if(countryDBUpdated.ContinentId == 0)
-                {
-                    ContinentDB continentDB = context.Continents.Find(countryDB.ContinentId);
-                    countryDB.ContinentId = continentDB.Id;
-                }
-                else
-                {
-                    countryDB.ContinentId = countryDBUpdated.ContinentId;
-
-                }
+                countryDB.ContinentId = newContinentId;
                 countryDB.Name = countryDBUpdated.Name;
                 countryDB.Population = countryDBUpdated.Population;
                 countryDB.Surface = countryDBUpdated.Surface;

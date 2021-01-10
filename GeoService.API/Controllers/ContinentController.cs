@@ -42,7 +42,7 @@ namespace GeoService.API.Controllers
             logger.LogInformation($"Post api/continent/ called");
             try
             {
-                //TODO API - if(object is valid) else return bad request
+                if (continentAPI == null) return BadRequest();
                 Domain.Models.Continent continent = ContinentMapper.ContinentInMapper(countryManager, continentAPI);
                 Domain.Models.Continent continentCreated = continentManager.AddContinent(continent);
                 if (continentCreated != null)
@@ -63,8 +63,6 @@ namespace GeoService.API.Controllers
             }
         }
 
-        //TODO API - badrequest
-
         [HttpPut("{id}")]
         public IActionResult PutContinent(int id, [FromBody] ContinentInApi continentIn)
         {
@@ -80,6 +78,7 @@ namespace GeoService.API.Controllers
                     return CreatedAtAction(nameof(GetContinent), new { id = continentOut.Id }, continentOut);
                 }
                 Domain.Models.Continent continentUpdate = ContinentMapper.ContinentInMapper(countryManager, continentIn);
+                continentUpdate.Id = id;
                 continentManager.UpdateContinent(id, continentUpdate);
                 return new NoContentResult();
             }

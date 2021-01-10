@@ -95,15 +95,15 @@ namespace GeoService.API.Controllers
                     Domain.Models.Country country = CountryMapper.CountryInMapper(continentManager, countryInApi);
                     Domain.Models.Country countryCreated = countryManager.AddCountry(country);
                     CountryOutApi countryOut = CountryMapper.CountryOutMapper(hostUrl, countryCreated);
-                    return CreatedAtAction(nameof(GetCountry), new { id = countryOut.Id }, countryOut);
+                    return CreatedAtAction(nameof(GetCountry), new { continentId = countryCreated.Continent.Id, countryId = countryCreated.Id }, countryOut);
                 }
                 Domain.Models.Country countryUpdate = CountryMapper.CountryInMapper(continentManager, countryInApi);
-                countryManager.UpdateCountry(countryId, countryUpdate);
+                countryManager.UpdateCountry(countryId, countryUpdate, countryUpdate.Continent.Id);
                 return new NoContentResult();
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.InnerException.Message);
+                logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }

@@ -3,17 +3,14 @@ using GeoService.Domain.Managers;
 using GeoService.Domain.Models;
 using GeoService.EF.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MSTests.Domain.Managers
 {
     [TestClass]
     public class ContinentManagerTests
-    { 
+    {
         private readonly ContinentManager continentManager;
         private readonly CountryManager countryManager;
 
@@ -24,69 +21,63 @@ namespace MSTests.Domain.Managers
             countryManager = new CountryManager(new UnitOfWork(ctx));
         }
 
-        [TestMethod]
-        public void AddContinent_ShouldThrowException_IfContinentIsNull()
-        {
-            // Arrange 
+        //[TestMethod]
+        //public void AddContinent_ShouldThrowException_IfContinentIsNull()
+        //{
+        //    // Arrange
 
+        //    // Act
 
-            // Act 
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
+        //[TestMethod]
+        //public void AddContinent_ShouldThrowException_IfContinentNameExist()
+        //{
+        //    // Arrange
 
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Act
 
-        [TestMethod]
-        public void AddContinent_ShouldThrowException_IfContinentNameExist()
-        {
-            // Arrange 
-
-
-            // Act 
-
-
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void AddContinent_ShouldAddContinentAndUpdateCountries_IfContinentIsValid()
         {
-            // Arrange 
+            // Arrange
             Continent continent1 = new Continent("Africa");
             Continent continent1InDb = continentManager.AddContinent(continent1);
             Country country1 = new Country("Afghanistan", 38928346, 652.860, continent1InDb);
-            Country country2= new Country("Albania", 2877797, 27.400, continent1InDb);
+            Country country2 = new Country("Albania", 2877797, 27.400, continent1InDb);
             Country country1InDb = countryManager.AddCountry(country1);
             Country country2nDb = countryManager.AddCountry(country2);
             List<Country> countries = new List<Country>();
             countries.Add(country1InDb); countries.Add(country2nDb);
             Continent continent2 = new Continent("Asia", countries);
-            // Act 
+            // Act
             continentManager.AddContinent(continent2);
             Continent continent2InDb = continentManager.Find("Asia");
-            // Assert  
+            // Assert
             continent2InDb.Should().BeEquivalentTo(continent2, options => options.Excluding(o => o.Id));
         }
 
-        [TestMethod]
-        public void FindContinentById_ShouldThrowException_IfIdIsNegativeOrEqualToZero()
-        {
-            // Arrange 
+        //[TestMethod]
+        //public void FindContinentById_ShouldThrowException_IfIdIsNegativeOrEqualToZero()
+        //{
+        //    // Arrange
 
+        //    // Act
 
-            // Act 
-
-
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void FindContinentById_ShouldFindContinentWithCountries_IfContinentExists()
         {
-            // Arrange 
+            // Arrange
             Continent continent1 = new Continent("Europe");
             Continent continent1InDb = continentManager.AddContinent(continent1);
             Country country1 = new Country("Algeria", 38928346, 652.860, continent1InDb);
@@ -94,10 +85,10 @@ namespace MSTests.Domain.Managers
             Country country1InDb = countryManager.AddCountry(country1);
             Country country2nDb = countryManager.AddCountry(country2);
 
-            // Act 
+            // Act
             Continent continent = continentManager.Find(continent1InDb.Id);
 
-            // Assert      
+            // Assert
             continent.Should().NotBeNull();
             continent.Name.Should().Be("Europe");
             continent.Countries.Count.Should().Be(2);
@@ -105,104 +96,94 @@ namespace MSTests.Domain.Managers
             continent.Countries.First().Should().BeEquivalentTo(country1InDb);
         }
 
-        [TestMethod]
-        public void FindContinentByName_ShouldThrowException_IfNameIsNotValid()
-        {
-            // Arrange 
+        //[TestMethod]
+        //public void FindContinentByName_ShouldThrowException_IfNameIsNotValid()
+        //{
+        //    // Arrange
 
+        //    // Act
 
-            // Act 
-
-
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void FindContinentByName_ShouldFindContinent_IfContinentExists()
         {
-            // Arrange 
+            // Arrange
             Continent continent1 = new Continent("North-America");
             Continent continent1InDb = continentManager.AddContinent(continent1);
 
-            // Act 
+            // Act
             Continent continent = continentManager.Find(continent1InDb.Name);
 
-            // Assert      
+            // Assert
             continent.Should().NotBeNull();
             continent.Name.Should().Be("North-America");
         }
 
-        [TestMethod]
-        public void RemoveContinent_ShouldThrowException_IfContinentDoesNotExist()
-        {
-            // Arrange 
+        //[TestMethod]
+        //public void RemoveContinent_ShouldThrowException_IfContinentDoesNotExist()
+        //{
+        //    // Arrange
 
+        //    // Act
 
-            // Act 
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
+        //[TestMethod]
+        //public void RemoveContinent_ShouldThrowException_IfContinentHasCountries()
+        //{
+        //    // Arrange
 
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Act
 
-        [TestMethod]
-        public void RemoveContinent_ShouldThrowException_IfContinentHasCountries()
-        {
-            // Arrange 
-
-
-            // Act 
-
-
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void RemoveContinent_ShouldRemoveContinent_IfContinentExists()
         {
-            // Arrange 
+            // Arrange
             Continent continent1 = new Continent("South-America");
             Continent continent1InDb = continentManager.AddContinent(continent1);
 
-            // Act 
+            // Act
             continentManager.RemoveContinent(continent1InDb.Id);
 
-            // Assert      
+            // Assert
             continentManager.Find(continent1InDb.Id).Should().BeNull();
         }
 
-        [TestMethod]
-        public void UpdateContinent_ShouldThrowException_IfContinentNameExists()
-        {
-            // Arrange 
+        //[TestMethod]
+        //public void UpdateContinent_ShouldThrowException_IfContinentNameExists()
+        //{
+        //    // Arrange
 
+        //    // Act
 
-            // Act 
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
+        //[TestMethod]
+        //public void UpdateContinent_ShouldThrowException_IfContinentDoesNotExist()
+        //{
+        //    // Arrange
 
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Act
 
-        [TestMethod]
-        public void UpdateContinent_ShouldThrowException_IfContinentDoesNotExist()
-        {
-            // Arrange 
-
-
-            // Act 
-
-
-            // Assert           
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
         [TestMethod]
         public void UpdateContinent_ShouldUpdateContinent_IfContinentExists()
         {
-            // Arrange 
+            // Arrange
             Continent continent1 = new Continent("Europe");
             Continent continent2 = new Continent("Europe 2.0");
             Continent continent1InDb = continentManager.AddContinent(continent1);
@@ -217,11 +198,11 @@ namespace MSTests.Domain.Managers
             continentUpdated.Name = "East-Europe";
             continentUpdated.AddCountry(country2InDb);
 
-            // Act 
+            // Act
             continentManager.UpdateContinent(continent1InDb.Id, continentUpdated);
             Continent updatedContinentInDb = continentManager.Find(continentUpdated.Id);
 
-            // Assert           
+            // Assert
             updatedContinentInDb.Name.Should().Be("East-Europe");
             updatedContinentInDb.Countries.Count.Should().Be(2);
         }

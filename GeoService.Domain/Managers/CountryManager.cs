@@ -19,7 +19,7 @@ namespace GeoService.Domain.Managers
             if (Find(country.Name) != null)
                 throw new CountryManagerException($"Add Country - Country with name: {country.Name} already exist.");
 
-            Country countryInDb =  uow.Countries.AddCountry(country);
+            Country countryInDb = uow.Countries.AddCountry(country);
             uow.Complete();
             return countryInDb;
         }
@@ -35,7 +35,7 @@ namespace GeoService.Domain.Managers
         {
             Country country = uow.Countries.Find(continentId, countryId);
 
-            if(country is null) throw new CountryManagerException("FindCountry - country doesn't exist");
+            if (country is null) throw new CountryManagerException("FindCountry - country doesn't exist");
             if (country.Continent.Id != continentId)
                 throw new CountryManagerException("FindCountry - continent doesn't belong to country");
 
@@ -54,17 +54,17 @@ namespace GeoService.Domain.Managers
                 throw new CountryManagerException("Country doesn't exist");
 
             uow.Countries.RemoveCountry(countryId);
-            
+
             uow.Complete();
         }
 
-        public void UpdateCountry(int id, Country countryUpdated)
+        public void UpdateCountry(int id, Country countryUpdated, int continentId)
         {
             if (countryUpdated == null) throw new CountryManagerException("Add Continent - continent cannot be null");
             if (Find(countryUpdated.Name) != null)
                 throw new CountryManagerException($"Add Country - Country with name: {countryUpdated.Name} already exist.");
 
-            uow.Countries.UpdateCountry(id, countryUpdated);
+            uow.Countries.UpdateCountry(id, countryUpdated, continentId);
 
             uow.Complete();
         }

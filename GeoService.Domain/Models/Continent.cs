@@ -119,16 +119,16 @@ namespace GeoService.Domain.Models
             return false;
         }
 
-        public void UpdateCountry(Country oldCountry, Country newCountry)
-        {
-            if (!_countries.Contains(oldCountry))
-                throw new ContinentException("Continent - UpdateCountry : country doesn't exist");
+        //public void UpdateCountry(Country oldCountry, Country newCountry)
+        //{
+        //    if (!_countries.Contains(oldCountry))
+        //        throw new ContinentException("Continent - UpdateCountry : country doesn't exist");
 
-            if (newCountry.Population != 0) oldCountry.Population = newCountry.Population;
-            if (newCountry.Continent != null) oldCountry.Continent = newCountry.Continent;
-            if (newCountry.Name != null) oldCountry.Name = newCountry.Name;
-            if (newCountry.Surface != 0) oldCountry.Surface = newCountry.Surface;
-        }
+        //    if (newCountry.Population != 0) oldCountry.Population = newCountry.Population;
+        //    if (newCountry.Continent != null) oldCountry.Continent = newCountry.Continent;
+        //    if (newCountry.Name != null) oldCountry.Name = newCountry.Name;
+        //    if (newCountry.Surface != 0) oldCountry.Surface = newCountry.Surface;
+        //}
 
         internal void DeleteCountry(Country country)
         {

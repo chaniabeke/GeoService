@@ -26,19 +26,6 @@ namespace MSTests.Domain.Models.ContinentTests
         }
 
         [TestMethod]
-        public void SetId_ShouldThrowException_IfIdIsZero()
-        {
-            Continent continent = new Continent(5, "Asia");
-
-            Action act = () =>
-            {
-                continent.Id = 0;
-            };
-
-            act.Should().Throw<ContinentException>().WithMessage("Continent - Id invalid");
-        }
-
-        [TestMethod]
         public void SetId_ShouldThrowException_IfIdIsNegative()
         {
             Continent continent = new Continent(5, "Asia");
@@ -100,14 +87,12 @@ namespace MSTests.Domain.Models.ContinentTests
         [TestMethod]
         public void SetCountries_ShouldBeCorrect_IfCountriesListIsValid()
         {
-            //List<Country> countries = new List<Country>();
-            //Country country = new Country(5, "China", 88, 50000);
-            //countries.Add(country);
-            //Continent continent = new Continent(5, "Asia", countries);
+            List<Country> countries = new List<Country>();
+            Country country = new Country(5, "China", 88, 50000);
+            countries.Add(country);
+            Continent continent = new Continent(5, "Asia", countries);
 
-            //continent.Countries.Count.Should().Be(1);
-
-            Assert.Fail();
+            continent.Countries.Count.Should().Be(1);
         }
 
         [TestMethod]
