@@ -10,7 +10,6 @@ namespace GeoService.Domain.Models
 
         private int _id;
         private string _name;
-        private List<Country> _countriesFields = new List<Country>();
 
         #endregion Fields
 

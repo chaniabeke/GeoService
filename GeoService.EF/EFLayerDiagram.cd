@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeoService.EF.DataAccess.DataContext">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAQAAIAgAAIAAAQAAEAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\DataContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.EF.DataAccess.UnitOfWork">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAIAAAAAAQAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GeoService.EF.Mappers.ContinentMapper">
+    <Position X="13" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Mappers\ContinentMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.EF.Mappers.CountryMapper">
+    <Position X="13" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACBAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mappers\CountryMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.EF.Models.ContinentDB">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ContinentDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.EF.Models.CountryDB">
+    <Position X="9.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAIAAAAAAQEAAAAACABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CountryDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.EF.Repositories.ContinentRepository">
+    <Position X="6" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAgAAAAAAAAAAAABAAAAAAAIAAAAAAAAABEAAAA=</HashCode>
+      <FileName>Repositories\ContinentRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GeoService.EF.Repositories.CountryRepository">
+    <Position X="6" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAEAAAAAAA=</HashCode>
+      <FileName>Repositories\CountryRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

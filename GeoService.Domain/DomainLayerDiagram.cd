@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeoService.Domain.Models.Continent">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACKAAAAAAAIAAJAABIAQQAAAAAAAAAABAEQAAAAAA=</HashCode>
+      <FileName>Models\Continent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Countries" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GeoService.Domain.Models.Country">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACJCAAAAAAIEAIgABAAAQEAAAAAJABAAAAQAAAEAA=</HashCode>
+      <FileName>Models\Country.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Continent" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GeoService.Domain.Managers.ContinentManager">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAEAAAABAAQAAAAIAAAAAAAAABEAAAA=</HashCode>
+      <FileName>Managers\ContinentManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GeoService.Domain.Managers.CountryManager">
+    <Position X="8.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAQAAAAIAAAAgAAEAAAAAAA=</HashCode>
+      <FileName>Managers\CountryManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GeoService.Domain.Exceptions.ContinentException" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ContinentException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.Domain.Exceptions.ContinentManagerException" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ContinentManagerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.Domain.Exceptions.CountryException" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\CountryException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoService.Domain.Exceptions.CountryManagerException" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\CountryManagerException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GeoService.Domain.Interfaces.IContinentRepository">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAABAAAAAAAIAAAAAAAAABEAAAA=</HashCode>
+      <FileName>Interfaces\IContinentRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoService.Domain.Interfaces.ICountryRepository">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAEAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICountryRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoService.Domain.Interfaces.IUnitOfWork">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAQAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
