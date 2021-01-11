@@ -11,7 +11,7 @@ namespace ConsoleApp
             ContinentManager continentManager = new ContinentManager(new UnitOfWork());
             CountryManager countryManager = new CountryManager(new UnitOfWork());
 
-            Continent continent1 = new Continent("Asia");
+            Continent continent1 = new Continent("Antartica");
             Continent continent2 = new Continent("Europe");
             Continent continent1WithId = continentManager.AddContinent(continent1);
             Continent continent2WithId = continentManager.AddContinent(continent2);

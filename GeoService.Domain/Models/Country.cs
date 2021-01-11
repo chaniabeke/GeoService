@@ -11,6 +11,7 @@ namespace GeoService.Domain.Models
         private string _name;
         private int _population;
         private double _surface;
+        private Continent _continent;
 
         #endregion Fields
 

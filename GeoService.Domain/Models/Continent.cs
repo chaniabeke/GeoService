@@ -10,6 +10,7 @@ namespace GeoService.Domain.Models
 
         private int _id;
         private string _name;
+        private List<Country> _countriesFields = new List<Country>();
 
         #endregion Fields
 
@@ -35,7 +36,7 @@ namespace GeoService.Domain.Models
 
         public IReadOnlyList<Country> Countries
         {
-            get { return _countries.AsReadOnly(); }
+            get { return _countriesFields.AsReadOnly(); }
         }
 
         #endregion Properties
@@ -54,7 +55,7 @@ namespace GeoService.Domain.Models
         public Continent(string name, List<Country> countries) : this(name)
         {
             this.Name = name;
-            this._countries = countries;
+            this._countriesFields = countries;
             foreach (Country country in countries) country.Continent = this;
         }
 
@@ -66,7 +67,7 @@ namespace GeoService.Domain.Models
 
         public Continent(int id, string name, List<Country> countries) : this(id, name)
         {
-            this._countries = countries;
+            this._countriesFields = countries;
             foreach (Country country in countries) country.Continent = this;
         }
 
@@ -99,7 +100,7 @@ namespace GeoService.Domain.Models
 
         public int Population()
         {
-            return _countries.Sum(x => x.Population);
+            return _countriesFields.Sum(x => x.Population);
         }
 
         public void AddCountry(Country country)
@@ -108,13 +109,13 @@ namespace GeoService.Domain.Models
             //if (_countries.Contains(country))
             //   throw new ContinentException("Continent - AddCountry : country already exists");
 
-            _countries.Add(country);
+            _countriesFields.Add(country);
             if (country.Continent != this) country.Continent = this;
         }
 
         public bool HasCountry(Country country)
         {
-            if (_countries.Contains(country)) return true;
+            if (_countriesFields.Contains(country)) return true;
             return false;
         }
 
@@ -131,8 +132,8 @@ namespace GeoService.Domain.Models
 
         internal void DeleteCountry(Country country)
         {
-            if (!_countries.Contains(country)) throw new ContinentException("Continent - DeleteCountry : country does not exist");
-            _countries.Remove(country);
+            if (!_countriesFields.Contains(country)) throw new ContinentException("Continent - DeleteCountry : country does not exist");
+            _countriesFields.Remove(country);
         }
 
         #endregion Methods
